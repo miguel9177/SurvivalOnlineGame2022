@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //make this camera follow the object
-        this.transform.position = objectToFollow.transform.position;
+        //make this camera follow the object, without editing z
+        this.transform.position = new Vector3(objectToFollow.transform.position.x, objectToFollow.transform.position.y, this.transform.position.z);
     }
 }
