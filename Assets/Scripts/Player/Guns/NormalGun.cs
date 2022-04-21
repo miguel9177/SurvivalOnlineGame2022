@@ -17,7 +17,7 @@ struct Gun
     public float totalBullets;
     public float weight;
     public Sprite gunImage;
-    public Vector3 bulletSpawnOffset;
+    public Transform bulletSpawnPos;
 }
 
 [RequireComponent(typeof(GunInformation))]
@@ -40,7 +40,7 @@ public class NormalGun : MonoBehaviourPun
     public void CallShootFunction()
     {
         //this will call the function shoot, on every pc on the server, and send the info about the position so that everyone gets this player position
-        photonView.RPC("Shoot", RpcTarget.All, transform.position + gun.bulletSpawnOffset, gun.bulletSpeed, gun.damage);
+        photonView.RPC("Shoot", RpcTarget.All, gun.bulletSpawnPos.position, gun.bulletSpeed, gun.damage);
     }
 
     [PunRPC]
@@ -49,7 +49,7 @@ public class NormalGun : MonoBehaviourPun
         //this is going to spawn the bullet on every computer 
         GameObject projectileInstance = Instantiate(bullet.gameObject, position_, Quaternion.identity);
         //this is going to call the function that will add force to the bullet
-        projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(transform.right, bulletSpeed_, gunDamage_);
+        projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(-transform.right, bulletSpeed_, gunDamage_);
     }
 
 

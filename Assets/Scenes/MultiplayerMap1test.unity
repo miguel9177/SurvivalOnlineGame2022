@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07f75e78a5215d44957a2dd7f940efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 3545901687973867786, guid: d4fed7c7ac08ba94da69b8d7990794db, type: 3}
+  playerPrefab: {fileID: 5018839419928201618, guid: fa17416eaaa58a549a7e17a52ef6a7ad, type: 3}
   playerCameraFollow: {fileID: 951431435}
 --- !u!4 &587309746
 Transform:
@@ -749,9 +749,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.92
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 6.13
+  m_LinearDrag: 2.35
+  m_AngularDrag: 2.64
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
