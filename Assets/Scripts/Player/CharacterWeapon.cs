@@ -11,12 +11,8 @@ public class CharacterWeapon : MonoBehaviour
 
     public void Shoot()
     {
-        //this is going to check if its a normal gun
-        if (weapon.CompareTag("NormalGun"))
-        {
-            //call the function that is going to shoot
-            weapon.GetComponent<NormalGun>().CallShootFunction();
-        }
+        //call the function that is going to shoot
+        weapon.GetComponent<GunInformation>().firingMethod();   
     }
 
 

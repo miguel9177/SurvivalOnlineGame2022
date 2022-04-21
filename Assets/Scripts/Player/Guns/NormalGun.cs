@@ -20,6 +20,7 @@ struct Gun
     public Vector3 bulletSpawnOffset;
 }
 
+[RequireComponent(typeof(GunInformation))]
 public class NormalGun : MonoBehaviourPun
 {
     [SerializeField]
@@ -32,10 +33,10 @@ public class NormalGun : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        //this will tell the character weapon wich type of weapon it is
-        this.gameObject.tag = "NormalGun";   
+        this.gameObject.GetComponent<GunInformation>().firingMethod = CallShootFunction; 
     }
 
+    //this is called by the gun information script
     public void CallShootFunction()
     {
         //this will call the function shoot, on every pc on the server, and send the info about the position so that everyone gets this player position
@@ -50,6 +51,7 @@ public class NormalGun : MonoBehaviourPun
         //this is going to call the function that will add force to the bullet
         projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(transform.right, bulletSpeed_, gunDamage_);
     }
+
 
     void Reload()
     {
