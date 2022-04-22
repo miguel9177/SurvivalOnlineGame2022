@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.UI;
+
 [System.Serializable]
 struct AiEnemy
 {
@@ -11,12 +13,15 @@ struct AiEnemy
     public float damage;
     public float hp;
     public float moneyWorth;
+    //i need max hp, to be able to edit the slider of the enemy ai hp, since we need to transform it to a 0-1 value
+    public float maxHp;
 }
 
 public class NormalAiEnemy : MonoBehaviourPun
 {
     [SerializeField]
-    TextMeshProUGUI tempHp;
+    //this will store the gameobject with the slider of the health bar
+    Slider HpSlider;
 
     [SerializeField]
     //this will store the settings of this enemy
@@ -25,14 +30,19 @@ public class NormalAiEnemy : MonoBehaviourPun
     //this will check if the die function have already been called
     bool haveIHaverBeenCalled = false;
 
+    private void Start()
+    {
+        thisEnemy.maxHp = thisEnemy.hp;
+    }
+
     //if collided with some collider
     void OnCollisionEnter2D(Collision2D col)
     {
         //this will checl of ythe bullet has a bullet information, if it has it will get damaged
         if(col.gameObject.GetComponent<BulletInformation>())
         {
-            //this will decrease the ai hp
-            thisEnemy.hp = thisEnemy.hp - col.gameObject.GetComponent<BulletInformation>().damage;
+            //this will call the function that will decrease the ai hp and update the hp bar
+            RemoveHpAndUpdateHpBar(col.gameObject.GetComponent<BulletInformation>().damage);
             
             //if the hp is less or equal to 0, call the function die
             if(thisEnemy.hp <= 0)
@@ -42,22 +52,25 @@ public class NormalAiEnemy : MonoBehaviourPun
                     //this will call the function Die, on every pc on the server
                     photonView.RPC("Die", RpcTarget.All);
 
-                //tell the code that the function die has already been called
-                haveIHaverBeenCalled=true;
             }
         }
     }
 
-    
     [PunRPC]
     void Die()
     {
+        //tell the code that the function die has already been called ( to prevent it from being called twice since this function is online)
+        haveIHaverBeenCalled = true;
         //destroy this object, since it died
         Destroy(this.gameObject);
     }
 
-    private void Update()
+    //this function will decrease hp of the enemy, and update the slider
+    public void RemoveHpAndUpdateHpBar(float hpAmmountToLose)
     {
-        tempHp.text = thisEnemy.hp.ToString();
+        //decrease the hp of this ai enemy
+        thisEnemy.hp = thisEnemy.hp - hpAmmountToLose;
+        //update the hp bar
+        HpSlider.value = thisEnemy.hp / thisEnemy.maxHp;
     }
 }

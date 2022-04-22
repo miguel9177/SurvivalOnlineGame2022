@@ -17,6 +17,6 @@ public class PlayerSpawner : MonoBehaviour
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
 
         //this will make the camera follow the player
-        playerCameraFollow.objectToFollow = playerPrefab;
+        playerCameraFollow.objectToFollow = player;
     }
 }
