@@ -130,5 +130,5 @@ public class AiMovePathFind : MonoBehaviourPun
         StartCoroutine(CheckIfAiIsCloseToCurrentTarget());
     }
 
-  
+    
 }

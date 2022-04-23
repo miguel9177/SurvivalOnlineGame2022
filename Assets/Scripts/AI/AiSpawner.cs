@@ -56,6 +56,11 @@ public class AiSpawner : MonoBehaviourPun
     GameObject[] specialEnemys;
     #endregion
 
+    #region variables to comunicate with the gamemanager
+    //this will store the round system script to be able to tell him when a enemy spawns
+    RoundSystem roundSystemScript;
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +73,9 @@ public class AiSpawner : MonoBehaviourPun
 
         //set the number of spawn points on the begining of the scene
         indexOfCurrentSpawnPoint += spawnPointsToIncreasePerDoorUnlocked[indexOfDoorsUnlocked];
+
+        //this will store the round system script
+        roundSystemScript = this.gameObject.GetComponent<RoundSystem>();
 
         //call both courootines that spawn enemys
         StartCoroutine(SpawnNormalAiEnemy());
@@ -92,7 +100,10 @@ public class AiSpawner : MonoBehaviourPun
         enemySpawned.transform.parent = parentOfNormalEnemies.transform;
         //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
-
+       
+        //tell the round system script that a player spawned, and tell him how much space it occupies
+        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().spaceOccupiedByAi, enemySpawned.GetComponent<PhotonView>().ViewID);
+       
         //if the stop animation bool is false, stop spawning enemies
         if (stopSpawning==false)
             //recall this function so that it always spawns enemys
@@ -117,6 +128,11 @@ public class AiSpawner : MonoBehaviourPun
         enemySpawned.transform.parent = parentOfSpecialEnemies.transform;
         //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
+       
+
+        //tell the round system script that a player spawned, and tell him how much space it occupies
+        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().spaceOccupiedByAi, enemySpawned.GetComponent<PhotonView>().ViewID);
+
 
         //if the stop animation bool is false, stop spawning enemies
         if (stopSpawning == false)

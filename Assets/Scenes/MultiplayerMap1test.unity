@@ -850,3 +850,18 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &2001471620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001471618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8983b180a5dbd4944b80b0d4ca5d1162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpOfEnemiesToIncreasePerRound: 0
+  numberOfEnemiesToIncreasePerRound: 0
+  limitOfEnemiesOnScene: 0

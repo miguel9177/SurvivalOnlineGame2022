@@ -19,6 +19,8 @@ struct AiEnemy
     public float maxHp;
 }
 
+//its mandatory to have this script since it will be the script that comunicates with other scripts, without knowing if the enemy is a normal or other type
+[RequireComponent(typeof(AiEnemyInformation))]
 public class NormalAiEnemy : MonoBehaviourPun
 {
     [SerializeField]
@@ -32,9 +34,16 @@ public class NormalAiEnemy : MonoBehaviourPun
     //this will check if the die function have already been called
     bool haveIHaverBeenCalled = false;
 
+    //this will store the script so that we can call the die function
+    AiEnemyInformation aiEnemyInformationScript = null;
+
     private void Start()
     {
         thisEnemy.maxHp = thisEnemy.hp;
+        //store the script from this gameobject
+        aiEnemyInformationScript = this.gameObject.GetComponent<AiEnemyInformation>();
+        //let the space ocupied script know how much this ai ocupies
+        aiEnemyInformationScript.spaceOccupiedByAi = thisEnemy.spaceOccupied;
     }
 
     //if collided with some collider
@@ -63,6 +72,8 @@ public class NormalAiEnemy : MonoBehaviourPun
     {
         //tell the code that the function die has already been called ( to prevent it from being called twice since this function is online)
         haveIHaverBeenCalled = true;
+        //tell the ai enemy information that it died, for him to inform the RoundSystem
+        aiEnemyInformationScript.Death();
         //destroy this object, since it died
         Destroy(this.gameObject);
     }

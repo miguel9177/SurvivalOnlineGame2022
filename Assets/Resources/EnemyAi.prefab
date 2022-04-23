@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 3144837096194021991}
   - component: {fileID: 3144837096194021990}
   - component: {fileID: 8990431880773872596}
+  - component: {fileID: 7770963083197005194}
   - component: {fileID: 8625819298316390081}
   - component: {fileID: 3144837096194021977}
   - component: {fileID: 3144837096194021979}
@@ -202,6 +203,20 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7770963083197005194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144837096194021981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a5ee07e704d0142a7992ea350c2f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManagerRoundSystem: {fileID: 0}
+  spaceOccupiedByAi: 0
 --- !u!114 &8625819298316390081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +252,7 @@ MonoBehaviour:
     damage: 5
     hp: 50
     moneyWorth: 20
-    spaceOccupied: 0
+    spaceOccupied: 1
     maxHp: 0
 --- !u!114 &3144837096194021979
 MonoBehaviour:
