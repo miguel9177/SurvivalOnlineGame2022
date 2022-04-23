@@ -13,6 +13,8 @@ struct AiEnemy
     public float damage;
     public float hp;
     public float moneyWorth;
+    //just like in clash of clans, every enemy ocupies a certain space, so that if we have stronger enemys they occupy more space
+    public int spaceOccupied;
     //i need max hp, to be able to edit the slider of the enemy ai hp, since we need to transform it to a 0-1 value
     public float maxHp;
 }

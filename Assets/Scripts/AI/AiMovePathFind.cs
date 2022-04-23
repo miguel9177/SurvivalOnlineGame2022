@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
-public class AiMovePathFind : MonoBehaviour
+using Photon.Pun;
+public class AiMovePathFind : MonoBehaviourPun
 {
 
-    [SerializeField]
+
     //this will store to where the ai needs to move
-    private Transform[] targets;
+    [HideInInspector]
+    public List<Transform> targetsOfAi = new List<Transform>();
 
     //this will store the index of the closest target from the array of targets
     private int indexOfCloserTarget;
@@ -38,6 +39,13 @@ public class AiMovePathFind : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Destroy(this);
+            Destroy(this.GetComponent<NavMeshAgent>());
+            return;
+        }
+
         initialTimeToUpdatePathFind = timeToUpdatePathFind;
 
         //MANDATORY CODE FOR EVERY AI ENTETY, THIS IS TO FIX A BUG FROM THE PACKAGE
@@ -51,6 +59,8 @@ public class AiMovePathFind : MonoBehaviour
         //call the couroutine that is going to star the loop of updating the navmesh
         StartCoroutine(LoopUpdateNavMesh());
 
+        StartCoroutine(CheckWhichTargetToFollow());
+
     }
 
     //this will do an infinite loop to update the target depending on who is closer
@@ -62,10 +72,10 @@ public class AiMovePathFind : MonoBehaviour
         //this will create the variable that is going to be used on the for loop, and will store the current closest distance
         float closestDistance = 999999f;
         //do a loop trough all targets
-        for (int i = 0; i < targets.Length; i++)
+        for (int i = 0; i < targetsOfAi.Count; i++)
         {
             //get the distance between this object and the current target
-            float tempDistance = Vector2.Distance(this.transform.position, targets[i].transform.position);
+            float tempDistance = Vector2.Distance(this.transform.position, targetsOfAi[i].transform.position);
             //if the distance of the current target is smaller then the distance of the current smallest distance, store this distance instead
             if (tempDistance < closestDistance)
             {
@@ -87,16 +97,17 @@ public class AiMovePathFind : MonoBehaviour
         yield return new WaitForSeconds(timeToUpdatePathFind);
 
         //this will update the navmesh agent 
-        agent.SetDestination(targets[indexOfCloserTarget].position);
+        agent.SetDestination(targetsOfAi[indexOfCloserTarget].transform.position);
         
         //recall this courotine since its supossed to be a infinite loop
         StartCoroutine(LoopUpdateNavMesh());
     }
 
-    private void FixedUpdate()
+    IEnumerator CheckWhichTargetToFollow()
     {
+        Debug.Log(indexOfCloserTarget + "   " + targetsOfAi.Count);
         //if we are close to the target, start updating the pathfinding faster
-        if(Vector2.Distance(this.transform.position, targets[indexOfCloserTarget].transform.position) < distanceToStartPathFindingCloser)
+        if(Vector2.Distance(this.transform.position, targetsOfAi[indexOfCloserTarget].transform.position) < distanceToStartPathFindingCloser)
         {
             //make the timeToUpdatePathFind smaller, since we are closer, and with this the navmesh wil update more times
             timeToUpdatePathFind = timeToUpdatePathFindWhenClose;
@@ -106,5 +117,14 @@ public class AiMovePathFind : MonoBehaviour
             //reset the timeToUpdatePathFind value since we are not close
             timeToUpdatePathFind = initialTimeToUpdatePathFind;
         }
+
+        yield return new WaitForSeconds(0.5f);
+        //recall this courotine since its supossed to be a infinite loop
+        StartCoroutine(LoopUpdateNavMesh());
+    }
+
+    private void Update()
+    {
+       
     }
 }

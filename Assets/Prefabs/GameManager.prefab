@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5076932197778132258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5076932197778132269}
+  - component: {fileID: 5076932197778132268}
+  - component: {fileID: -3494047646332346030}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5076932197778132269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076932197778132258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5076932197778132268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076932197778132258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302ac5ae3d22b1348b588212efc70e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnPointsToIncreasePerDoorUnlocked: 020000000200000002000000
+  timeToSpawnNormalEnemys: 1
+  timeToSpawnSpecialEnemys: 8
+  stopSpawning: 0
+  parentOfNormalEnemies: {fileID: 0}
+  parentOfSpecialEnemies: {fileID: 0}
+  normalEnemys:
+  - {fileID: 8273169871953200671, guid: 61f85b7beda8ca34fabccc102d373dae, type: 3}
+  - {fileID: 233588080081531614, guid: cfc3d9039521659499e9730a8b89e23a, type: 3}
+  specialEnemys:
+  - {fileID: 8518575867000995555, guid: 46d69ff9ff8963a4eb4ae0f60ff8fb88, type: 3}
+  - {fileID: 8751232521246058294, guid: 0b53f54f680fce34588537d1810a4e0f, type: 3}
+--- !u!114 &-3494047646332346030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5076932197778132258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07f75e78a5215d44957a2dd7f940efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 5018839419928201618, guid: fa17416eaaa58a549a7e17a52ef6a7ad, type: 3}
+  playerCameraFollow: {fileID: 0}
