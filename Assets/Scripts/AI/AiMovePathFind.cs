@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+
+[RequireComponent(typeof(NavMeshAgent))]
 public class AiMovePathFind : MonoBehaviourPun
 {
-
-
     //this will store to where the ai needs to move
     [HideInInspector]
     public List<Transform> targetsOfAi = new List<Transform>();
@@ -39,13 +39,18 @@ public class AiMovePathFind : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        //if we are not the master client we remove this script and the navmesh agent of this gameobject, since we only do the ai pathfinding calculations on the master computer and the rest uses the photon view to see the ai move
         if (!PhotonNetwork.IsMasterClient)
         {
+            //remove this script from this gameobject, since we are not the master client
             Destroy(this);
+            //remove the navmehs agent from this gameobject, since we are not the master client
             Destroy(this.GetComponent<NavMeshAgent>());
+            //leave this void, since we destroid this script
             return;
         }
 
+        //store the initial time to update path find, since when we get close to the target we need to use a smaller value
         initialTimeToUpdatePathFind = timeToUpdatePathFind;
 
         //MANDATORY CODE FOR EVERY AI ENTETY, THIS IS TO FIX A BUG FROM THE PACKAGE
@@ -59,7 +64,8 @@ public class AiMovePathFind : MonoBehaviourPun
         //call the couroutine that is going to star the loop of updating the navmesh
         StartCoroutine(LoopUpdateNavMesh());
 
-        StartCoroutine(CheckWhichTargetToFollow());
+        //this coroutine will check wich target to follow depending on who is closer
+        StartCoroutine(CheckIfAiIsCloseToCurrentTarget());
 
     }
 
@@ -103,9 +109,9 @@ public class AiMovePathFind : MonoBehaviourPun
         StartCoroutine(LoopUpdateNavMesh());
     }
 
-    IEnumerator CheckWhichTargetToFollow()
+    //this will do an infinite loop to check if the ai is close to the target, if it is, it will start updating the navmesh faster
+    IEnumerator CheckIfAiIsCloseToCurrentTarget()
     {
-        Debug.Log(indexOfCloserTarget + "   " + targetsOfAi.Count);
         //if we are close to the target, start updating the pathfinding faster
         if(Vector2.Distance(this.transform.position, targetsOfAi[indexOfCloserTarget].transform.position) < distanceToStartPathFindingCloser)
         {
@@ -118,13 +124,11 @@ public class AiMovePathFind : MonoBehaviourPun
             timeToUpdatePathFind = initialTimeToUpdatePathFind;
         }
 
+        //this will make the script wait 0.5f
         yield return new WaitForSeconds(0.5f);
         //recall this courotine since its supossed to be a infinite loop
-        StartCoroutine(LoopUpdateNavMesh());
+        StartCoroutine(CheckIfAiIsCloseToCurrentTarget());
     }
 
-    private void Update()
-    {
-       
-    }
+  
 }

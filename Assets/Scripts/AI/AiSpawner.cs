@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
+//THIS SCRIPT ONLY RUNS ON THE MASTER CLIENT, SINCE WE HAVE ADDED THE IF IS MASTER CLIENT ON THE START VOID 
 public class AiSpawner : MonoBehaviourPun
 {
     #region variables to handle spawning
@@ -34,12 +36,15 @@ public class AiSpawner : MonoBehaviourPun
 
     #region variables to handle enemys
     [HideInInspector]
+    //this will store every player on the scene
     public List<Transform> targets = new List<Transform>();
 
     [SerializeField]
+    //this will store the parent gameobject of all normal enemies (for organizational purposes)
     GameObject parentOfNormalEnemies;
 
     [SerializeField]
+    //this will store the parent gameobject of all special enemies (for organizational purposes)
     GameObject parentOfSpecialEnemies;
 
     [SerializeField]
@@ -54,8 +59,10 @@ public class AiSpawner : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
+        //if we are not the master client remove this script since we only want to handle the spawning of the ai in one pc, and the rest receive the enemy by photon view
         if (!PhotonNetwork.IsMasterClient)
         {
+            //remove this script since we are not the master client
             Destroy(this);
         }
 
@@ -67,7 +74,7 @@ public class AiSpawner : MonoBehaviourPun
         StartCoroutine(SpawnSpecialAiEnemy());
     }
 
-    //this is going to store a enemy on a random spawn point
+    //this is going to spawn a enemy on a random unlocked spawn point
     IEnumerator SpawnNormalAiEnemy()
     {
         //wait a time before running the code below
@@ -81,9 +88,9 @@ public class AiSpawner : MonoBehaviourPun
 
         //spawn a normal enemy at the spawn position
         GameObject enemySpawned = PhotonNetwork.Instantiate(normalEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
+        //make the enemy spawn a child of the parent of all normal enemies
         enemySpawned.transform.parent = parentOfNormalEnemies.transform;
-        if (targets.Count == 0)
-        { Debug.Log("asdkjasldas"); }
+        //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
 
         //if the stop animation bool is false, stop spawning enemies
@@ -106,9 +113,9 @@ public class AiSpawner : MonoBehaviourPun
 
         //spawn a special enemy at the spawn position
         GameObject enemySpawned = PhotonNetwork.Instantiate(specialEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
+        //make the enemy spawn a child of the parent of all special enemies
         enemySpawned.transform.parent = parentOfSpecialEnemies.transform;
-        if (targets.Count == 0)
-        { Debug.Log("asdkjasldas"); }
+        //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
 
         //if the stop animation bool is false, stop spawning enemies

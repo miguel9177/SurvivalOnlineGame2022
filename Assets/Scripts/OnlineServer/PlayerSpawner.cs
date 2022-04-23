@@ -6,8 +6,6 @@ using Photon.Pun;
 
 public class PlayerSpawner : MonoBehaviourPun
 {
-    //public List<Transform> targets = new List<Transform>();
-
     //this will store wich player this script will spawn
     [SerializeField] private GameObject playerPrefab = null;
     //this will get access to the free look cinemachine camera component, so that we can say to it wich player to follow on, the void start
@@ -19,7 +17,7 @@ public class PlayerSpawner : MonoBehaviourPun
         //if we do the if photonView.IsMine, and will spawn it on 000 positionm and 000 rotation
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
 
-        //this will call the function Die, on every pc on the server
+        //this will call the function StoreAllPlayersInScene, on every pc on the server
         photonView.RPC("StoreAllPlayersInScene", RpcTarget.All, player.GetComponent<PhotonView>().ViewID);
 
         //this will make the camera follow the player
@@ -27,10 +25,13 @@ public class PlayerSpawner : MonoBehaviourPun
     }
 
     [PunRPC]
+    //this function will tell the ai spawner (script that only runs on the masterclient) which targerts it has (players playing)
     void StoreAllPlayersInScene(int playerId)
     {
+        //get the player spawned, by finding its id
         GameObject playerSpawned = PhotonView.Find(playerId).gameObject;
 
+        //if we have the ai spawner (in this case if we are the master client), tell the ai spawner about this player
         if(this.gameObject.GetComponent<AiSpawner>())
             this.gameObject.GetComponent<AiSpawner>().targets.Add(playerSpawned.transform);
 
