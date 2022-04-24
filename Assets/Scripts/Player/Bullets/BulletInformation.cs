@@ -7,4 +7,6 @@ public class BulletInformation : MonoBehaviour
 {
     [HideInInspector]
     public float damage;
+
+
 }

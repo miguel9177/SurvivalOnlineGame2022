@@ -18,16 +18,20 @@ public class RoundSystem : MonoBehaviourPun
     private int currentNumberOfEnemiesToSpawnPerRound;
 
     [SerializeField]
-    //this will store how much hp i increase per round
-    int hpOfEnemiesToIncreasePerRound;
-
-    [SerializeField]
     //this will store the number of enemies to increase per round
     int numberOfEnemiesToIncreasePerRound;
 
     [SerializeField]
     //this will store the limit of enemies on the scene, this will prevent fps drop due to too many enemies on the scene
     int limitOfEnemiesOnScene;
+
+    [SerializeField]
+    //this will store how much hp i increase per round
+    int hpOfEnemiesToIncreasePerRound;
+
+    [HideInInspector]
+    //this will stor how much hp to increase, when the current round ends, this will be asseced by the ai spawner
+    public int hpToIncrease;
 
     //this will be true if im the master client, if i am i wont do most of the processing of the round system, only receive the punRpc Fucntion calls
     private bool amIMasterClient=false;
@@ -46,18 +50,20 @@ public class RoundSystem : MonoBehaviourPun
 
     private void Start()
     {
-        //get the ai spawner script, so that we can stop spawning
-        aiSpawnerScript = GetComponent<AiSpawner>();
+        
         
         //set the variables for the begining of the round
         currentRound = 1;
         roundText.text = currentRound.ToString();
         currentNumberOfEnemiesToSpawnPerRound = 10;
+        hpToIncrease = 0;
 
         //if we are the master client, tell the code that we are
         if (PhotonNetwork.IsMasterClient)
         {
-            amIMasterClient=true;
+            //get the ai spawner script, so that we can stop spawning
+            aiSpawnerScript = GetComponent<AiSpawner>();
+            amIMasterClient =true;
         }
     }
 
@@ -87,8 +93,7 @@ public class RoundSystem : MonoBehaviourPun
             //if we already spawned every enemy, we call the function to stop spawning
             if (enemiesSpawnedThisRound >= currentNumberOfEnemiesToSpawnPerRound)
             {
-                //this will call the function StopRound, on every pc on the server, since we dont wwant to spawn anymore enemies
-                photonView.RPC("StopRound", RpcTarget.All);
+                StopRound();
             }
         }
             
@@ -127,7 +132,7 @@ public class RoundSystem : MonoBehaviourPun
         
     }
 
-    [PunRPC]
+    //this function is only called on the master client
     //when we stoped spawning enemies we call this function, the round can still be going on, but we wont spawn anymore
     void StopRound()
     {
@@ -142,9 +147,30 @@ public class RoundSystem : MonoBehaviourPun
     //when the round has finished, we call this function to start the next round
     void NextRound()
     {
-
+        //tell the code that another round has started
         currentRound += 1;
+        //update the text of the round
         roundText.text = currentRound.ToString();
+        //reset the variable
+        currentnumberOfEnemiesInScene = 0;
+        //reset the variable
+        enemiesSpawnedThisRound = 0;
+        //increase the number of enemies we are going to spawn next round
+        currentNumberOfEnemiesToSpawnPerRound += numberOfEnemiesToIncreasePerRound;
+        //increase the hp to increase of the enemies 
+        hpToIncrease += hpOfEnemiesToIncreasePerRound;
+
+        //if im the master client
+        if (amIMasterClient)
+        {
+            aiSpawnerScript.stopSpawning = false;
+            //start spawning enemies
+            aiSpawnerScript.RestartAllLoops();
+        }
+
+        //reset the variable
+        spawnedEveryEnemyInThisRound = false;
+        
     }
     #endregion
 

@@ -100,7 +100,9 @@ public class AiSpawner : MonoBehaviourPun
         enemySpawned.transform.parent = parentOfNormalEnemies.transform;
         //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
-       
+        //increase the hp of this enemy depending on the round
+        enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
+
         //tell the round system script that a player spawned, and tell him how much space it occupies
         roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
        
@@ -128,7 +130,8 @@ public class AiSpawner : MonoBehaviourPun
         enemySpawned.transform.parent = parentOfSpecialEnemies.transform;
         //tell this ai what targets it has to follow (all players in scene)
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
-       
+        //increase the hp of this enemy depending on the round
+        enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
 
         //tell the round system script that a player spawned, and tell him how much space it occupies
         roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
@@ -149,5 +152,11 @@ public class AiSpawner : MonoBehaviourPun
         indexOfCurrentSpawnPoint += spawnPointsToIncreasePerDoorUnlocked[indexOfDoorsUnlocked];
     }
 
-  
+    //this will restart every courotine on this script, since they stop when the round ends
+    public void RestartAllLoops()
+    {
+        //call both courootines that spawn enemys
+        StartCoroutine(SpawnNormalAiEnemy());
+        StartCoroutine(SpawnSpecialAiEnemy());
+    }
 }

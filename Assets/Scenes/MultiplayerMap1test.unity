@@ -977,7 +977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5076932197778132268, guid: 8bf53900de670fc48aa40bd57cc0da0d, type: 3}
       propertyPath: timeToSpawnNormalEnemys
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5076932197778132268, guid: 8bf53900de670fc48aa40bd57cc0da0d, type: 3}
       propertyPath: specialEnemys.Array.size
@@ -1100,7 +1100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8983b180a5dbd4944b80b0d4ca5d1162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpOfEnemiesToIncreasePerRound: 5
   numberOfEnemiesToIncreasePerRound: 5
   limitOfEnemiesOnScene: 50
+  hpOfEnemiesToIncreasePerRound: 5
+  hpToIncrease: 0
   roundText: {fileID: 957492116}
