@@ -6,7 +6,7 @@ public class CharacterWeapon : MonoBehaviour
 {
     [SerializeField]
     //this is going to store the current character weapon
-    GameObject weapon;
+    public GameObject weapon;
 
 
     public void Shoot()

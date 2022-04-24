@@ -29,6 +29,8 @@ public class PlayerSpawner : MonoBehaviourPun
 
         //this will make the camera follow the player
         playerCameraFollow.objectToFollow = player;
+
+        this.gameObject.GetComponent<UiManager>().player = player;
     }
 
     [PunRPC]

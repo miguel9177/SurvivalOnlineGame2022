@@ -320,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25002340cf48a4c43b0c75bb8ffd793b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txtBulletsOfWeapon: {fileID: 0}
 --- !u!114 &7076338437487642964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,10 +339,10 @@ MonoBehaviour:
     bulletSpeed: 500
     reloadTime: 0
     moneyWorth: 0
-    currentBulletsOnMagazine: 0
-    bulletsPerMagazine: 0
-    totalBullets: 0
-    weight: 0
+    currentBulletsOnMagazine: 30
+    bulletsPerMagazine: 30
+    totalBullets: 120
+    weight: 10
     gunImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     bulletSpawnPos: {fileID: 108078696396479647}
   bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
