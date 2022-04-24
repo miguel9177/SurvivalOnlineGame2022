@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5018839419928201617}
   - component: {fileID: 4491910028643280655}
   - component: {fileID: 8512522348152841074}
+  - component: {fileID: 571150691144781632}
   - component: {fileID: -122438518981681752}
   - component: {fileID: -5795012354118292267}
   - component: {fileID: 7905561698147307918}
@@ -137,6 +138,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.1341662, y: 3.6945653}
   m_EdgeRadius: 0
+--- !u!114 &571150691144781632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5018839419928201618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58eab87a9b020a94ea6f372ea0e0268a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats:
+    kills: 0
+    money: 0
+    revives: 0
+  moneyText: {fileID: 0}
 --- !u!114 &-122438518981681752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +345,7 @@ MonoBehaviour:
     gunImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     bulletSpawnPos: {fileID: 108078696396479647}
   bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
+  playerStats: {fileID: 571150691144781632}
 --- !u!114 &7334017380844485131
 MonoBehaviour:
   m_ObjectHideFlags: 0

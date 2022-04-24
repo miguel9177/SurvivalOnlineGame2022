@@ -8,5 +8,8 @@ public class BulletInformation : MonoBehaviour
     [HideInInspector]
     public float damage;
 
+    [HideInInspector]
+    //this will store the player that shot this bullet, so that we can give money if we kill a ai
+    public PlayerStatsAndFunctionalities playerThatShotMe;
 
 }

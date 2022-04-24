@@ -30,6 +30,10 @@ public class NormalGun : MonoBehaviourPun
     [SerializeField]
     NormalBullet bullet;
 
+    [SerializeField]
+    //i need to store this script here, so that i can know wich player shot the bullet so that i can know who to give the money
+    PlayerStatsAndFunctionalities playerStats;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +52,9 @@ public class NormalGun : MonoBehaviourPun
     {
         //this is going to spawn the bullet on every computer 
         GameObject projectileInstance = Instantiate(bullet.gameObject, position_, Quaternion.identity);
+
+        //this will store who shot the bullet
+        projectileInstance.GetComponent<BulletInformation>().playerThatShotMe = playerStats;
         //this is going to call the function that will add force to the bullet
         projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(-transform.right, bulletSpeed_, gunDamage_);
     }

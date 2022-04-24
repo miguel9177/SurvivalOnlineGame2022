@@ -54,7 +54,7 @@ public class RoundSystem : MonoBehaviourPun
         
         //set the variables for the begining of the round
         currentRound = 1;
-        roundText.text = currentRound.ToString();
+        roundText.text = "Wave: " + currentRound.ToString();
         currentNumberOfEnemiesToSpawnPerRound = 10;
         hpToIncrease = 0;
 
@@ -150,7 +150,7 @@ public class RoundSystem : MonoBehaviourPun
         //tell the code that another round has started
         currentRound += 1;
         //update the text of the round
-        roundText.text = currentRound.ToString();
+        roundText.text = "Wave: " + currentRound.ToString();
         //reset the variable
         currentnumberOfEnemiesInScene = 0;
         //reset the variable

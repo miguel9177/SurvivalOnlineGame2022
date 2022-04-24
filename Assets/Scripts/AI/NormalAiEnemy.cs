@@ -33,27 +33,39 @@ public class NormalAiEnemy : MonoBehaviourPun
     //if collided with some collider
     void OnCollisionEnter2D(Collision2D col)
     {
+        BulletInformation bulletInformationScriptOfBullet;
         //this will checl of ythe bullet has a bullet information, if it has it will get damaged
         if(col.gameObject.GetComponent<BulletInformation>())
         {
+            //since we have the script we will get the bullet script so that we can use it 
+            bulletInformationScriptOfBullet = col.gameObject.GetComponent<BulletInformation>();
+            
             //this will call the function that will decrease the ai hp and update the hp bar
-            RemoveHpAndUpdateHpBar(col.gameObject.GetComponent<BulletInformation>().damage);
+            RemoveHpAndUpdateHpBar(bulletInformationScriptOfBullet.damage);
             
             //if the hp is less or equal to 0, call the function die
             if (aiEnemyInformationScript.thisEnemy.hp <= 0)
             {
                 //if the fucntion die havent been called on this ai enemy, call the function die
-                if(haveIHaverBeenCalled == false)
+                if (haveIHaverBeenCalled == false)
+                {
                     //this will call the function Die, on every pc on the server
-                    photonView.RPC("Die", RpcTarget.All);
+                    photonView.RPC("Die", RpcTarget.All, bulletInformationScriptOfBullet.playerThatShotMe.gameObject.GetComponent<PhotonView>().ViewID);
+              
+                }
+                    
 
             }
         }
     }
 
     [PunRPC]
-    void Die()
+    void Die(int idOfPlayerThatKilledMe)
     {
+        //get the player spawned, by finding its id
+        GameObject playerSpawned = PhotonView.Find(idOfPlayerThatKilledMe).gameObject;
+        //tell the player that killed me that he killed me.
+        playerSpawned.GetComponent<PlayerStatsAndFunctionalities>().KilledEnemy(aiEnemyInformationScript.thisEnemy.moneyWorth);
         //tell the code that the function die has already been called ( to prevent it from being called twice since this function is online)
         haveIHaverBeenCalled = true;
         //tell the ai enemy information that it died, for him to inform the RoundSystem
