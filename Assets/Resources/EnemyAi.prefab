@@ -216,7 +216,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerRoundSystem: {fileID: 0}
-  spaceOccupiedByAi: 0
+  thisEnemy:
+    speed: 5
+    damage: 5
+    hp: 50
+    moneyWorth: 20
+    spaceOccupied: 1
+    maxHp: 0
 --- !u!114 &8625819298316390081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,13 +253,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpSlider: {fileID: 7973516695843872314}
-  thisEnemy:
-    speed: 5
-    damage: 5
-    hp: 50
-    moneyWorth: 20
-    spaceOccupied: 1
-    maxHp: 0
 --- !u!114 &3144837096194021979
 MonoBehaviour:
   m_ObjectHideFlags: 0

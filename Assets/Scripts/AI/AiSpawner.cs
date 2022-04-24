@@ -31,7 +31,7 @@ public class AiSpawner : MonoBehaviourPun
 
     [SerializeField]
     //this will stop the spawning if its true
-    bool stopSpawning = false;
+    public bool stopSpawning = false;
     #endregion
 
     #region variables to handle enemys
@@ -102,7 +102,7 @@ public class AiSpawner : MonoBehaviourPun
         enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
        
         //tell the round system script that a player spawned, and tell him how much space it occupies
-        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().spaceOccupiedByAi, enemySpawned.GetComponent<PhotonView>().ViewID);
+        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
        
         //if the stop animation bool is false, stop spawning enemies
         if (stopSpawning==false)
@@ -131,7 +131,7 @@ public class AiSpawner : MonoBehaviourPun
        
 
         //tell the round system script that a player spawned, and tell him how much space it occupies
-        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().spaceOccupiedByAi, enemySpawned.GetComponent<PhotonView>().ViewID);
+        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
 
 
         //if the stop animation bool is false, stop spawning enemies
