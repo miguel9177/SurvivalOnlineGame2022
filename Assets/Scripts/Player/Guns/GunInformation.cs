@@ -9,7 +9,15 @@ public class GunInformation : MonoBehaviour
     public delegate void ShootFunctionToCall();
     public ShootFunctionToCall firingMethod;
 
+    //this will store the function to shoot, i use this so that i dont have to know wich type of weapon the user is using 
+    public delegate void ReloadFunctionToCall();
+    public ReloadFunctionToCall reloadMethod;
+
     [HideInInspector]
     //this is the textbox for the bullets of the weapon, this is assigned by the uimanager
     public TextMeshProUGUI txtBulletsOfWeapon;
+
+    [HideInInspector]
+    //this is the textbox for the reload information
+    public TextMeshProUGUI txtReloadInformation;
 }

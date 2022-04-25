@@ -14,6 +14,11 @@ public class CharacterWeapon : MonoBehaviour
         //call the function that is going to shoot
         weapon.GetComponent<GunInformation>().firingMethod();   
     }
+    
 
-
+    public void Reload()
+    {
+        //call the function that is going to reload
+        weapon.GetComponent<GunInformation>().reloadMethod();
+    }
 }

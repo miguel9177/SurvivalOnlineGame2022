@@ -7,7 +7,11 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     //this will store the text for the bullets
     public TextMeshProUGUI txtBulletsOfWeapon;
-    
+
+    [SerializeField]
+    //this will store the text informing the player is reloading
+    public TextMeshProUGUI txtReloadInformation;
+
     [HideInInspector]
     //this will store the player gameobject, so that i can access every script from here
     public GameObject player;
@@ -18,7 +22,8 @@ public class UiManager : MonoBehaviour
     {
         //call the courotine that is going to make this script start after everyone else 
         StartCoroutine(LateStart());
-       
+        //make this text invisible since we only want to tell the user that we are reloading, when we are reloading
+        txtReloadInformation.gameObject.SetActive(false);
     }
 
     
@@ -27,6 +32,7 @@ public class UiManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         //this will assign the textbox to the gun
         player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtBulletsOfWeapon = txtBulletsOfWeapon;
+        player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtReloadInformation = txtReloadInformation;
     }
 
     

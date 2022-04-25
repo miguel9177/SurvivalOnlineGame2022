@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtBulletsOfWeapon: {fileID: 0}
+  txtReloadInformation: {fileID: 0}
 --- !u!114 &7076338437487642964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,13 +336,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun:
     damage: 10
-    rateOfFire: 0
+    rateOfFire: 5
     bulletSpeed: 500
-    reloadTime: 0
-    moneyWorth: 0
+    reloadTime: 2
+    moneyWorth: 5000
     currentBulletsOnMagazine: 30
     bulletsPerMagazine: 30
-    totalBullets: 120
+    spareBullets: 120
     weight: 10
     gunImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     bulletSpawnPos: {fileID: 108078696396479647}

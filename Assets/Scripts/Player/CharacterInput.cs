@@ -63,6 +63,12 @@ public class CharacterInput : MonoBehaviourPun
             WeaponHolder.Shoot();
         }
 
+        //if we click R call the delegated reload function
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            WeaponHolder.Reload();
+        }
+
         //this will rotate the player towards the mouse position
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         difference.Normalize();
