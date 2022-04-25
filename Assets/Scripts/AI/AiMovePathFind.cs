@@ -130,5 +130,20 @@ public class AiMovePathFind : MonoBehaviourPun
         StartCoroutine(CheckIfAiIsCloseToCurrentTarget());
     }
 
-    
+    private void Update()
+    {
+        //this function will rotate the ai to the target
+        RotateAiToLookAtTarget();
+    }
+
+    //this will rotate the ai to look at the target
+    void RotateAiToLookAtTarget()
+    {
+        //get the direction of the enemy and the target
+        Vector3 dir = targetsOfAi[indexOfCloserTarget].transform.position - transform.position;
+        //get the angle between it
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //rotate the ai by the forward axis
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 }

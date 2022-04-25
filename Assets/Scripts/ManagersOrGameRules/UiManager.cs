@@ -12,6 +12,10 @@ public class UiManager : MonoBehaviour
     //this will store the text informing the player is reloading
     public TextMeshProUGUI txtReloadInformation;
 
+    [SerializeField]
+    //this will store the text informing the player hp
+    public TextMeshProUGUI txtPlayerHp;
+
     [HideInInspector]
     //this will store the player gameobject, so that i can access every script from here
     public GameObject player;
@@ -33,6 +37,8 @@ public class UiManager : MonoBehaviour
         //this will assign the textbox to the gun
         player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtBulletsOfWeapon = txtBulletsOfWeapon;
         player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtReloadInformation = txtReloadInformation;
+        //this will assign the textbox to the player
+        player.GetComponent<PlayerStatsAndFunctionalities>().txtPlayerHp = txtPlayerHp;
     }
 
     

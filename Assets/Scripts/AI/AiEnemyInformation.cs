@@ -7,7 +7,9 @@ public struct AiEnemy
 {
     //initialize every variable necessary for a AiEnemy
     public float speed;
-    public float damage;
+    public int damage;
+    //the speed of attacks
+    public float rateOfAttack;
     public float hp;
     public float moneyWorth;
     //just like in clash of clans, every enemy ocupies a certain space, so that if we have stronger enemys they occupy more space

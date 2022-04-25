@@ -151,10 +151,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats:
+    hp: 100
     kills: 0
     money: 0
     revives: 0
   moneyText: {fileID: 0}
+  txtPlayerHp: {fileID: 0}
 --- !u!114 &-122438518981681752
 MonoBehaviour:
   m_ObjectHideFlags: 0

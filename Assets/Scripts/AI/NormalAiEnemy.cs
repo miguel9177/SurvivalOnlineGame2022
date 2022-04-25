@@ -5,8 +5,6 @@ using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
 
-
-
 //its mandatory to have this script since it will be the script that comunicates with other scripts, without knowing if the enemy is a normal or other type
 [RequireComponent(typeof(AiEnemyInformation))]
 public class NormalAiEnemy : MonoBehaviourPun
@@ -20,6 +18,9 @@ public class NormalAiEnemy : MonoBehaviourPun
 
     //this will store the script so that we can call the die function
     AiEnemyInformation aiEnemyInformationScript = null;
+
+    //this wil be true if it can attack and false if it cant
+    bool canIAttack = true;
 
     private void Start()
     {
@@ -56,6 +57,46 @@ public class NormalAiEnemy : MonoBehaviourPun
                     
 
             }
+        }
+
+    }
+
+    //if collided with some collider
+    private void OnTriggerStay2D(Collider2D col)
+    {   
+        //if a player is inside our trigger, attack him
+        if (col.gameObject.CompareTag("Player") && canIAttack)
+        {
+            //call the function to attack the player
+            Attack(col.gameObject);
+            //this will call the coroutine that is going to control the rate of fire
+            StartCoroutine(AttackRateOfAttacksController());
+        }
+
+    }
+
+    IEnumerator AttackRateOfAttacksController()
+    {
+        canIAttack = false;
+        //wait a time before running the code below
+        yield return new WaitForSeconds(aiEnemyInformationScript.thisEnemy.rateOfAttack);
+        canIAttack = true;
+    }
+
+    //this function will attack a player if the photon view is ours
+    void Attack(GameObject playerAttacked)
+    {
+        //if this has my photon view, its because it my player and we can attack him
+        if(playerAttacked.GetComponent<PhotonView>().IsMine)
+        {
+            Debug.Log("Attack since this is my photon view");
+            //remove hp from my player
+            playerAttacked.GetComponent<PlayerStatsAndFunctionalities>().RemoveHp(aiEnemyInformationScript.thisEnemy.damage);
+        }
+        //if this does not have my photon view, its because its not my player and we can not attack him
+        else
+        {
+            Debug.Log("Only show attack animations, since this photon view is not mine");
         }
     }
 
