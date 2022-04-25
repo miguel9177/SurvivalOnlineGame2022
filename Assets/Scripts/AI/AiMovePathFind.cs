@@ -35,6 +35,8 @@ public class AiMovePathFind : MonoBehaviourPun
     [SerializeField]
     float distanceToStartPathFindingCloser;
 
+    [SerializeField]
+    float zRotationOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -144,6 +146,7 @@ public class AiMovePathFind : MonoBehaviourPun
         //get the angle between it
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //rotate the ai by the forward axis
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(angle + zRotationOffset, Vector3.forward);
+       
     }
 }

@@ -22,11 +22,19 @@ public class NormalAiEnemy : MonoBehaviourPun
     //this wil be true if it can attack and false if it cant
     bool canIAttack = true;
 
+    [SerializeField]
+    //get the animator to be able to change animations
+    Animator aiAnimator;
+
+    [SerializeField]
+    //this needs to have the same name has the attack parameter of the animator controller
+    string attackAnimatorParameterName;
+
     private void Start()
     {
         //store the script from this gameobject
         aiEnemyInformationScript = this.gameObject.GetComponent<AiEnemyInformation>();
-        
+        //get the enemy max hp
         aiEnemyInformationScript.thisEnemy.maxHp = aiEnemyInformationScript.thisEnemy.hp;
 
     }
@@ -90,8 +98,14 @@ public class NormalAiEnemy : MonoBehaviourPun
         if(playerAttacked.GetComponent<PhotonView>().IsMine)
         {
             Debug.Log("Attack since this is my photon view");
+
+            //tell the animator to attack
+            aiAnimator.SetBool(attackAnimatorParameterName, true);
+
             //remove hp from my player
             playerAttacked.GetComponent<PlayerStatsAndFunctionalities>().RemoveHp(aiEnemyInformationScript.thisEnemy.damage);
+
+            
         }
         //if this does not have my photon view, its because its not my player and we can not attack him
         else
