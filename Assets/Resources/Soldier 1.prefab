@@ -336,7 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun:
     damage: 10
-    rateOfFire: 5
+    rateOfFire: 0.2
     bulletSpeed: 500
     reloadTime: 2
     moneyWorth: 5000

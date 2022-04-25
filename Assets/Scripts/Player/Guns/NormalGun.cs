@@ -39,6 +39,8 @@ public class NormalGun : MonoBehaviourPun
 
     //this bool will be true when we are reloading
     bool reloading = false;
+    //this will be true when i can shoot, this  will let me control the rate of fire
+    bool canISHoot = true;
 
     // Start is called before the first frame update
     void Start()
@@ -64,10 +66,24 @@ public class NormalGun : MonoBehaviourPun
     //this is called by the Character input script
     public void CallShootFunction()
     {
-        //if we have bullets on the magazine
-        if(gun.currentBulletsOnMagazine > 0 && reloading == false)
+        //if we have bullets on the magazine, and we are not reloading, and we can shoot
+        if(gun.currentBulletsOnMagazine > 0 && reloading == false && canISHoot==true)
+        {
             //this will call the function shoot, on every pc on the server, and send the info about the position so that everyone gets this player position
             photonView.RPC("Shoot", RpcTarget.All, gun.bulletSpawnPos.position, gun.bulletSpeed, gun.damage);
+            //call the coroutine for controlling the rate of fire
+            StartCoroutine(RateOfFireController());
+        }
+    }
+
+    //this courotine will controll the rate of fire
+    IEnumerator RateOfFireController()
+    {
+        //tell the code to dont shoot
+        canISHoot = false;
+        yield return new WaitForSeconds(gun.rateOfFire);
+        //tell the code we can shoot
+        canISHoot = true;
     }
 
     //this is called by the character input script

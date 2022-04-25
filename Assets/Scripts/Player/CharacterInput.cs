@@ -58,7 +58,7 @@ public class CharacterInput : MonoBehaviourPun
         }.normalized;
 
         //if the left mouse is clicked
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             WeaponHolder.Shoot();
         }
