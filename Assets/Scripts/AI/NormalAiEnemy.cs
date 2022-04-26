@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 //its mandatory to have this script since it will be the script that comunicates with other scripts, without knowing if the enemy is a normal or other type
 [RequireComponent(typeof(AiEnemyInformation))]
@@ -29,6 +30,10 @@ public class NormalAiEnemy : MonoBehaviourPun
     [SerializeField]
     //this needs to have the same name has the attack parameter of the animator controller
     string attackAnimatorParameterName;
+
+    [SerializeField]
+    //this needs to have the same name has the die parameter of the animator controller
+    string dieAnimatorParameterName;
 
     private void Start()
     {
@@ -110,6 +115,8 @@ public class NormalAiEnemy : MonoBehaviourPun
         //if this does not have my photon view, its because its not my player and we can not attack him
         else
         {
+            //tell the animator to attack
+            aiAnimator.SetBool(attackAnimatorParameterName, true);
             Debug.Log("Only show attack animations, since this photon view is not mine");
         }
     }
@@ -125,8 +132,26 @@ public class NormalAiEnemy : MonoBehaviourPun
         haveIHaverBeenCalled = true;
         //tell the ai enemy information that it died, for him to inform the RoundSystem
         aiEnemyInformationScript.Death();
-        //destroy this object, since it died
-        Destroy(this.gameObject);
+        //this will tell the animator to die
+        aiAnimator.SetBool(dieAnimatorParameterName, true);
+
+        //if im the master client i wont have a navmesh agent and a ai move path find
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //since this ai is dead i deactivate the ai move path find
+            this.GetComponent<AiMovePathFind>().enabled = false;
+            //this will disable the navmesh agent so that he stops following the player
+            this.GetComponent<NavMeshAgent>().enabled = false;
+        }
+
+        //this will disable every collider of the ai
+        foreach (Collider2D c in GetComponents<Collider2D>())
+        {
+            c.enabled = false;
+        }
+        //in the ened we disable this script aswell, the game object is destroyd on the state machine script destroyafteranim
+        this.enabled = false;
+
     }
 
     //this function will decrease hp of the enemy, and update the slider

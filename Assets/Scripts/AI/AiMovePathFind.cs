@@ -104,6 +104,8 @@ public class AiMovePathFind : MonoBehaviourPun
         //wait a time before running the code below
         yield return new WaitForSeconds(timeToUpdatePathFind);
 
+        //i check if im enabled, since i deactivate the agent on the dying of the normal ai enemy script, and the courotine will call the script here, when the ai hasnt got a navmesh agent
+        if(this.enabled)
         //this will update the navmesh agent 
         agent.SetDestination(targetsOfAi[indexOfCloserTarget].transform.position);
         
