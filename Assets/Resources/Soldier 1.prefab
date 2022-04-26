@@ -73,7 +73,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1084435, y: -0.073449254}
+  m_Offset: {x: -0.1084435, y: 0.2821185}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -84,7 +84,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1573911, y: 1.4807472}
+  m_Size: {x: 1.1573911, y: 1.4539119}
   m_EdgeRadius: 0
 --- !u!114 &571150691144781632
 MonoBehaviour:
@@ -105,6 +105,8 @@ MonoBehaviour:
     revives: 0
   moneyText: {fileID: 0}
   txtPlayerHp: {fileID: 0}
+  playerAnimator: {fileID: 3586944270203666276}
+  deathParameterName: Death
 --- !u!114 &-122438518981681752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   WeaponHolder: {fileID: -5795012354118292267}
+  playerAnimator: {fileID: 3586944270203666276}
+  walkParameterFloatName: Walk
+  blockPlayerInput: 0
 --- !u!114 &-5795012354118292267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +157,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -6474499839452124113}
+  - {fileID: 1295697856839571827}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -278,6 +284,7 @@ GameObject:
   - component: {fileID: 1318470811801546711}
   - component: {fileID: 2433327215274153779}
   - component: {fileID: 3586944270203666276}
+  - component: {fileID: 1295697856839571827}
   m_Layer: 0
   m_Name: SpriteAndAnimatorController
   m_TagString: Untagged
@@ -361,7 +368,7 @@ Animator:
   m_GameObject: {fileID: 5192585105442275367}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 52b91310725b904429af8063a128c90a, type: 2}
+  m_Controller: {fileID: 9100000, guid: e5dd16a3378764447b81cb607c3fc78e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -370,6 +377,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1295697856839571827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192585105442275367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: Death
+  - Type: 1
+    SynchronizeType: 1
+    Name: Walk
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &6377697123724210085
 GameObject:
   m_ObjectHideFlags: 0
