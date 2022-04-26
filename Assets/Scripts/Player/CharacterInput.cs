@@ -47,6 +47,11 @@ public class CharacterInput : MonoBehaviourPun
             //call the function that gets the input and moves the object
             TakeInput();
         }
+        else
+        {
+            //if the input is blocked, we stop the player movement
+            movement = Vector2.zero;
+        }
         
     }
 
@@ -55,6 +60,7 @@ public class CharacterInput : MonoBehaviourPun
     {
         //i use velocity, to instantly move without acceleration
         rigidBody.velocity = movement * speed;
+      
     }
 
     //this function runs only on my pc, not on the other clients

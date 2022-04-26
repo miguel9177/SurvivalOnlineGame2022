@@ -32,6 +32,10 @@ public class AiSpawner : MonoBehaviourPun
     [SerializeField]
     //this will stop the spawning if its true
     public bool stopSpawning = false;
+
+    [HideInInspector]
+    //this will stop the spawning if the limit of enemies has been reached, this variable is filled by the roundSystem
+    public bool limitOfEnemiesHasBeenReached = false;
     #endregion
 
     #region variables to handle enemys
@@ -88,24 +92,30 @@ public class AiSpawner : MonoBehaviourPun
         //wait a time before running the code below
         yield return new WaitForSeconds(timeToSpawnNormalEnemys);
 
-        //get a random number between 0 and the current available last spawn point
-        int indexOfSpawnPointToSpawn = Random.Range(0, indexOfCurrentSpawnPoint);
+        //if the limit of enemies hasnt been reached, spawn the enemy
+        if(limitOfEnemiesHasBeenReached==false)
+        {
 
-        //get a normal enemy to spawn
-        int enemyToSpawn = Random.Range(0, normalEnemys.Length);
+            //get a random number between 0 and the current available last spawn point
+            int indexOfSpawnPointToSpawn = Random.Range(0, indexOfCurrentSpawnPoint);
 
-        //spawn a normal enemy at the spawn position
-        GameObject enemySpawned = PhotonNetwork.Instantiate(normalEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
-        //make the enemy spawn a child of the parent of all normal enemies
-        enemySpawned.transform.parent = parentOfNormalEnemies.transform;
-        //tell this ai what targets it has to follow (all players in scene)
-        enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
-        //increase the hp of this enemy depending on the round
-        enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
+            //get a normal enemy to spawn
+            int enemyToSpawn = Random.Range(0, normalEnemys.Length);
 
-        //tell the round system script that a player spawned, and tell him how much space it occupies
-        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
+            //spawn a normal enemy at the spawn position
+            GameObject enemySpawned = PhotonNetwork.Instantiate(normalEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
+            //make the enemy spawn a child of the parent of all normal enemies
+            enemySpawned.transform.parent = parentOfNormalEnemies.transform;
+            //tell this ai what targets it has to follow (all players in scene)
+            enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
+            //increase the hp of this enemy depending on the round
+            enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
+
+            //tell the round system script that a player spawned, and tell him how much space it occupies
+            roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
        
+        }
+
         //if the stop animation bool is false, stop spawning enemies
         if (stopSpawning==false)
             //recall this function so that it always spawns enemys
@@ -118,24 +128,28 @@ public class AiSpawner : MonoBehaviourPun
         //wait a time before running the code below
         yield return new WaitForSeconds(timeToSpawnSpecialEnemys);
 
-        //get a random number between 0 and the current available last spawn point
-        int indexOfSpawnPointToSpawn = Random.Range(0, indexOfCurrentSpawnPoint);
+        //if the limit of enemies hassnt been reached, spawn the enemy
+        if (limitOfEnemiesHasBeenReached == false)
+        {
+            //get a random number between 0 and the current available last spawn point
+            int indexOfSpawnPointToSpawn = Random.Range(0, indexOfCurrentSpawnPoint);
 
-        //get a special enemy to spawn
-        int enemyToSpawn = Random.Range(0, specialEnemys.Length);
+            //get a special enemy to spawn
+            int enemyToSpawn = Random.Range(0, specialEnemys.Length);
 
-        //spawn a special enemy at the spawn position
-        GameObject enemySpawned = PhotonNetwork.Instantiate(specialEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
-        //make the enemy spawn a child of the parent of all special enemies
-        enemySpawned.transform.parent = parentOfSpecialEnemies.transform;
-        //tell this ai what targets it has to follow (all players in scene)
-        enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
-        //increase the hp of this enemy depending on the round
-        enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
+            //spawn a special enemy at the spawn position
+            GameObject enemySpawned = PhotonNetwork.Instantiate(specialEnemys[enemyToSpawn].name, spawnPoints[indexOfSpawnPointToSpawn].position, Quaternion.identity);
+            //make the enemy spawn a child of the parent of all special enemies
+            enemySpawned.transform.parent = parentOfSpecialEnemies.transform;
+            //tell this ai what targets it has to follow (all players in scene)
+            enemySpawned.GetComponent<AiMovePathFind>().targetsOfAi = targets;
+            //increase the hp of this enemy depending on the round
+            enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.hp += roundSystemScript.hpToIncrease;
 
-        //tell the round system script that a player spawned, and tell him how much space it occupies
-        roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
+            //tell the round system script that a player spawned, and tell him how much space it occupies
+            roundSystemScript.enemySpawned(enemySpawned.GetComponent<AiEnemyInformation>().thisEnemy.spaceOccupied, enemySpawned.GetComponent<PhotonView>().ViewID);
 
+        }
 
         //if the stop animation bool is false, stop spawning enemies
         if (stopSpawning == false)

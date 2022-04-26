@@ -238,14 +238,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun:
-    damage: 10
+    damage: 50
     rateOfFire: 0.2
     bulletSpeed: 500
     reloadTime: 2
     moneyWorth: 5000
-    currentBulletsOnMagazine: 30
-    bulletsPerMagazine: 30
-    spareBullets: 120
+    currentBulletsOnMagazine: 90
+    bulletsPerMagazine: 90
+    spareBullets: 250
     weight: 10
     gunImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     bulletSpawnPos: {fileID: 108078696396479647}

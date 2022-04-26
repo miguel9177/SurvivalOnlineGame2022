@@ -121,34 +121,39 @@ public class NormalAiEnemy : MonoBehaviourPun
     [PunRPC]
     void Die(int idOfPlayerThatKilledMe)
     {
-        //get the player spawned, by finding its id
-        GameObject playerSpawned = PhotonView.Find(idOfPlayerThatKilledMe).gameObject;
-        //tell the player that killed me that he killed me.
-        playerSpawned.GetComponent<PlayerStatsAndFunctionalities>().KilledEnemy(aiEnemyInformationScript.thisEnemy.moneyWorth);
+        //i check if this function has already been called, since, even with this script deactivated it can be called by the photon rpc, and it was beinmg called twice
+        if(haveIHaverBeenCalled==false)
+        {
+            //get the player spawned, by finding its id
+            GameObject playerSpawned = PhotonView.Find(idOfPlayerThatKilledMe).gameObject;
+            //tell the player that killed me that he killed me.
+            playerSpawned.GetComponent<PlayerStatsAndFunctionalities>().KilledEnemy(aiEnemyInformationScript.thisEnemy.moneyWorth);
+        
+            //tell the ai enemy information that it died, for him to inform the RoundSystem
+            aiEnemyInformationScript.Death();
+            //this will tell the animator to die
+            aiAnimator.SetBool(dieAnimatorParameterName, true);
+
+            //if im the master client i wont have a navmesh agent and a ai move path find
+            if (PhotonNetwork.IsMasterClient)
+            {
+                //since this ai is dead i deactivate the ai move path find
+                this.GetComponent<AiMovePathFind>().enabled = false;
+                //this will disable the navmesh agent so that he stops following the player
+                this.GetComponent<NavMeshAgent>().enabled = false;
+            }
+
+            //this will disable every collider of the ai
+            foreach (Collider2D c in GetComponents<Collider2D>())
+            {
+                c.enabled = false;
+            }
+            //in the ened we disable this script aswell, the game object is destroyd on the state machine script destroyafteranim
+            this.enabled=false;
+        }
+
         //tell the code that the function die has already been called ( to prevent it from being called twice since this function is online)
         haveIHaverBeenCalled = true;
-        //tell the ai enemy information that it died, for him to inform the RoundSystem
-        aiEnemyInformationScript.Death();
-        //this will tell the animator to die
-        aiAnimator.SetBool(dieAnimatorParameterName, true);
-
-        //if im the master client i wont have a navmesh agent and a ai move path find
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //since this ai is dead i deactivate the ai move path find
-            this.GetComponent<AiMovePathFind>().enabled = false;
-            //this will disable the navmesh agent so that he stops following the player
-            this.GetComponent<NavMeshAgent>().enabled = false;
-        }
-
-        //this will disable every collider of the ai
-        foreach (Collider2D c in GetComponents<Collider2D>())
-        {
-            c.enabled = false;
-        }
-        //in the ened we disable this script aswell, the game object is destroyd on the state machine script destroyafteranim
-        this.enabled = false;
-
     }
 
     //this function will decrease hp of the enemy, and update the slider

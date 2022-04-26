@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEnemiesToIncreasePerRound: 5
-  limitOfEnemiesOnScene: 50
+  limitOfEnemiesOnScene: 30
   hpOfEnemiesToIncreasePerRound: 5
   hpToIncrease: 0
   roundText: {fileID: 957492116}

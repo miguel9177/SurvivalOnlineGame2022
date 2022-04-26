@@ -67,6 +67,8 @@ public class RoundSystem : MonoBehaviourPun
         }
     }
 
+
+
     #region "template" functions, that their only objective is call the rpc function, so that it runs on every pc
 
     //this will be called by the AiEnemyInformation script, when its ai dies
@@ -76,6 +78,9 @@ public class RoundSystem : MonoBehaviourPun
         {
             //this will call the function enemyDiedRPC, on every pc on the server
             photonView.RPC("enemyDiedRPC", RpcTarget.All, spaceOccupiedByEnemy);
+            //check if we reached the limit of enemies on scene
+            ControlLimitOfEnemiesOnScene();
+            
         }
     }
 
@@ -95,11 +100,26 @@ public class RoundSystem : MonoBehaviourPun
             {
                 StopRound();
             }
+            //check if we reached the limit of enemies on scene
+            ControlLimitOfEnemiesOnScene();
+           
         }
             
     }
 
     #endregion
+
+    //this function will stop spawning enemies if the limit has been surpased
+    void ControlLimitOfEnemiesOnScene()
+    {
+        //if the limit of enemies on scene has not been surpased, we let it keep spawning
+        if (currentnumberOfEnemiesInScene < limitOfEnemiesOnScene)
+            aiSpawnerScript.limitOfEnemiesHasBeenReached = false;
+        //if the number of enemies on scene is bigger then the limit of enemies on one scene, we stop spawning
+        else if (currentnumberOfEnemiesInScene > limitOfEnemiesOnScene)
+            aiSpawnerScript.limitOfEnemiesHasBeenReached = true;
+        
+    }
 
     #region Rpc functions, this functions are called for the functions with the same name but whitout rpc. the rpc will make this function be called on every player
 
@@ -128,8 +148,7 @@ public class RoundSystem : MonoBehaviourPun
         enemySpawned.GetComponent<AiEnemyInformation>().GameManagerRoundSystem = this;
 
         //tell the code that the number of enemies increased by the space occupied by the enemy spawned
-        currentnumberOfEnemiesInScene += spaceOccupiedByEnemy;
-        
+        currentnumberOfEnemiesInScene += spaceOccupiedByEnemy;        
     }
 
     //this function is only called on the master client
@@ -176,6 +195,6 @@ public class RoundSystem : MonoBehaviourPun
 
     private void Update()
     {
-        Debug.Log(enemiesSpawnedThisRound);
+       
     }
 }
