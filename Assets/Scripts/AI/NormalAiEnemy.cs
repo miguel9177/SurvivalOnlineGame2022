@@ -102,8 +102,6 @@ public class NormalAiEnemy : MonoBehaviourPun
         //if this has my photon view, its because it my player and we can attack him
         if(playerAttacked.GetComponent<PhotonView>().IsMine)
         {
-            Debug.Log("Attack since this is my photon view");
-
             //tell the animator to attack
             aiAnimator.SetBool(attackAnimatorParameterName, true);
 
@@ -117,7 +115,6 @@ public class NormalAiEnemy : MonoBehaviourPun
         {
             //tell the animator to attack
             aiAnimator.SetBool(attackAnimatorParameterName, true);
-            Debug.Log("Only show attack animations, since this photon view is not mine");
         }
     }
 

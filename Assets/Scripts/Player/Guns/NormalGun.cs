@@ -135,7 +135,7 @@ public class NormalGun : MonoBehaviourPun
         //this will store who shot the bullet
         projectileInstance.GetComponent<BulletInformation>().playerThatShotMe = playerStats;
         //this is going to call the function that will add force to the bullet
-        projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(-transform.right, bulletSpeed_, gunDamage_);
+        projectileInstance.GetComponent<NormalBullet>().AddForceToBullet(-transform.up, bulletSpeed_, gunDamage_);
 
         //since we shot a bullet we remove one
         gun.currentBulletsOnMagazine -= 1;
