@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class UiManager : MonoBehaviour
 {
     [SerializeField]
@@ -19,8 +21,10 @@ public class UiManager : MonoBehaviour
     [HideInInspector]
     //this will store the player gameobject, so that i can access every script from here
     public GameObject player;
-   
-    
+
+    [SerializeField]
+    //this will hold the revive button, and will be used by the revive controller
+    public Button reviveButton;
 
     private void Start()
     {
@@ -41,5 +45,6 @@ public class UiManager : MonoBehaviour
         player.GetComponent<PlayerStatsAndFunctionalities>().txtPlayerHp = txtPlayerHp;
     }
 
+   
     
 }

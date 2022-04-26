@@ -32,6 +32,8 @@ public class CharacterInput : MonoBehaviourPun
     //this bool will block the player movement, for example, when inside menus, or when death, it will be changed by scripts outside, like player stats and functionalities
     public bool blockPlayerInput = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +91,8 @@ public class CharacterInput : MonoBehaviourPun
         {
             WeaponHolder.Reload();
         }
+
+    
 
         //this will rotate the player towards the mouse position
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

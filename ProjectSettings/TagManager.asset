@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NormalGun
   - NormalBullet
+  - GameManager
   layers:
   - Default
   - TransparentFX

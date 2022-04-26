@@ -41,6 +41,13 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
     //this will hold the player collider, since we need to deactivate the collider when the player dies
     Collider2D colliderOfPlayer;
 
+    [SerializeField]
+    //this will hold the revive controller script
+    public ReviveController reviveControllerScript;
+
+    //this will be true when this player dies
+    public bool amIDead=false;
+
     private void Start()
     {
         //this will hold the character input script, because when the player dies, i need to stop the script from taking input
@@ -77,6 +84,39 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         colliderOfPlayer.enabled=false;
         //block the player input, so he doesnt move and shoot
         characterInputScript.blockPlayerInput = true;
+        //enable the revive gameobject
+        reviveControllerScript.gameObject.SetActive(true);
+        //tell the code that this player is dead
+        amIDead=true;
+    }
+
+    
+    //this will be called from the revive controller, and will call the revive on every pc
+    public void CallReviveRpc()
+    {
+        //this will call the function Die, on every pc on the server
+        photonView.RPC("ReviveRpc", RpcTarget.All);
+    }
+
+    //this will revive the player on every pc
+    [PunRPC]
+    void ReviveRpc()
+    {
+        //tell the code that im not dead
+        amIDead = false;
+        playerAnimator.enabled=true;
+        playerAnimator.Rebind();
+        playerAnimator.Update(0f);
+        //this will tell the animator that the player is not Dead
+        playerAnimator.SetBool(deathParameterName, false);
+        //this will activate the collider of the player
+        colliderOfPlayer.enabled = true;
+        //unblock the player input, so he moves and shoots
+        characterInputScript.blockPlayerInput = false;
+        //disable the revive gameobject
+        reviveControllerScript.gameObject.SetActive(false);
+        playerStats.hp = 100;
+        
     }
 
     //this will be called when an enemy is killed
