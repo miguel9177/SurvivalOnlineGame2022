@@ -20,9 +20,6 @@ public class ReviveController : MonoBehaviour
     //this will be true when someone is reviving this dead player
     bool beingRevived = false;
 
-    //this will be true if my player (that isnt the one with this script) can revive him
-    bool canIRevive = false;
-
     [SerializeField]
     //this will get the player stats and functionalities of the dead player (us)
     PlayerStatsAndFunctionalities playerStatsAndFunctionalities;

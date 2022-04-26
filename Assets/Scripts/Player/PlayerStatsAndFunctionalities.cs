@@ -104,9 +104,12 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
     {
         //tell the code that im not dead
         amIDead = false;
+
+        //this will restart the animator to make him go to the entry part
         playerAnimator.enabled=true;
         playerAnimator.Rebind();
         playerAnimator.Update(0f);
+
         //this will tell the animator that the player is not Dead
         playerAnimator.SetBool(deathParameterName, false);
         //this will activate the collider of the player
@@ -115,6 +118,7 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         characterInputScript.blockPlayerInput = false;
         //disable the revive gameobject
         reviveControllerScript.gameObject.SetActive(false);
+        //restore the player hp
         playerStats.hp = 100;
         
     }
