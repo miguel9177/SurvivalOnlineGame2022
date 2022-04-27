@@ -106,7 +106,7 @@ public class NormalGun : GunInformation
     void Shoot(Vector3 position_, float bulletSpeed_, float gunDamage_)
     {
         //this is going to spawn the bullet on every computer 
-        GameObject projectileInstance = Instantiate(bullet.gameObject, position_, Quaternion.identity);
+        GameObject projectileInstance = Instantiate(gun.bullet.gameObject, position_, Quaternion.identity);
 
         //this will store who shot the bullet
         projectileInstance.GetComponent<BulletInformation>().playerThatShotMe = playerStats;

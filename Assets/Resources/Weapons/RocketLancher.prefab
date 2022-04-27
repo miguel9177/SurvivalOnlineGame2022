@@ -56,8 +56,9 @@ MonoBehaviour:
     weight: 2
     gunImage: {fileID: 21300000, guid: 2113bf903f248b947aec1f5691de5bbf, type: 3}
     bulletSpawnPos: {fileID: 9221472578634914367}
+    bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
+    scaleOfWeapon: {x: 3.7006, y: 3.7006}
   typeOfWeapon: 2
-  bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
   txtBulletsOfWeapon: {fileID: 0}
   txtReloadInformation: {fileID: 0}
   playerStats: {fileID: 0}

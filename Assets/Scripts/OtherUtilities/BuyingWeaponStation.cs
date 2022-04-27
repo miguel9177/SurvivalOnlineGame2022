@@ -75,7 +75,7 @@ public class BuyingWeaponStation : MonoBehaviour
             playerGunInformation.gun.weight = weaponToBuy.gun.weight;
 
             //change the bullet
-            playerGunInformation.bullet = weaponToBuy.bullet;
+            playerGunInformation.gun.bullet = weaponToBuy.gun.bullet;
 
             //change the gun image
             playerGunInformation.gun.gunImage = weaponToBuy.gun.gunImage;

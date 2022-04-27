@@ -438,10 +438,11 @@ MonoBehaviour:
     bulletsPerMagazine: 12
     spareBullets: 120
     weight: 2
-    gunImage: {fileID: 0}
+    gunImage: {fileID: 21300000, guid: f79aa4a8422ac4340820ba0799a3a257, type: 3}
     bulletSpawnPos: {fileID: 108078696396479647}
+    bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
+    scaleOfWeapon: {x: 0, y: 0}
   typeOfWeapon: 0
-  bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
   txtBulletsOfWeapon: {fileID: 0}
   txtReloadInformation: {fileID: 0}
   playerStats: {fileID: 571150691144781632}
