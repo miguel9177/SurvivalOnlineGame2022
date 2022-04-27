@@ -17,20 +17,44 @@ public class NormalGun : GunInformation
         StartCoroutine(LateStart());   
     }
 
+    //this will wait for every script to have their stuff configured, and then we will have the text for the bullets (since its assigned by the ui manager)
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(0.1f);
+        //this will assign the textbox to the gun
+        UpdateBulletsText();
+    }
+
     private void Update()
     {
+        //if this is my photon view, we take input
         if(photonView.IsMine)
         {
             TakeInput();
         }
     }
 
+    //if the object is enabled (now this is the current weapon), we update the bullets text, and tell the game that we can shoot
     void OnEnable()
     {
+        //this will write the bullets of this weapon
         UpdateBulletsText();
+        //this will block the attacking for the rate of fire time, to remove the firing while switiching wepon being faster than just shooting
+        StartCoroutine(blockShootingWhenSwitchingWeapons());
+    }
+
+    //this will block the attacking for the rate of fire time, to remove the firing while switiching wepon being faster than just shooting
+    IEnumerator blockShootingWhenSwitchingWeapons()
+    {
+        //block the shooting
+        canISHoot = false;
+        //wait time
+        yield return new WaitForSeconds(gun.rateOfFire);
+        //tell the code that we can shoot
         canISHoot = true;
     }
 
+    //this function will handle all of the inputs for the guns
     void TakeInput()
     {
         //if the left mouse is clicked
@@ -46,12 +70,8 @@ public class NormalGun : GunInformation
         }
     }
 
-    IEnumerator LateStart()
-    {
-        yield return new WaitForSeconds(0.1f);
-        //this will assign the textbox to the gun
-        UpdateBulletsText();
-    }
+    
+    
 
     #region delegated functions, they are delegated to the gun information, and the character inpu calls them
     //this is called by the Character input script
@@ -107,15 +127,22 @@ public class NormalGun : GunInformation
         //if i have enough bullets for a full reload
         if(gun.spareBullets > (gun.bulletsPerMagazine - gun.currentBulletsOnMagazine))
         {
+            //this will get the bullets missing from the magazine
             int bulletsMissing = gun.bulletsPerMagazine - gun.currentBulletsOnMagazine;
+            //this will make the magazine have full bullets
             gun.currentBulletsOnMagazine += bulletsMissing;
+            //this will remove the bullets added to the magazine
             gun.spareBullets -= bulletsMissing;
         }
+        //if i dont have enough bullets for a full reload
         else
         {
+            //increase the bullets on the magazine by the spare bullets we had
             gun.currentBulletsOnMagazine += gun.spareBullets;
+            //and put spare bullets to 0, since if i cant have a full reload, that means that this variable needs to be 0, since there will not be no spare bullets
             gun.spareBullets = 0;
         }
+        //update the bullets text
         UpdateBulletsText();
         //this will unblock the weapon switch
         characterWeaponsScript.blockWeaponSwitch = false;

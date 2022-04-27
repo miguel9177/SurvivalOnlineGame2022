@@ -72,9 +72,9 @@ public class CharacterInput : MonoBehaviourPun
         }.normalized;
 
         //this will get if the player is moving on a float, so that i can pass it to the animator
-        float totalMovement = movement.x+movement.y;
+        float totalMovement = Mathf.Abs(movement.x)+Mathf.Abs(movement.y);
         //send the movement value to the animator
-        playerAnimator.SetFloat(walkParameterFloatName, Mathf.Abs(totalMovement));    
+        playerAnimator.SetFloat(walkParameterFloatName, totalMovement);    
 
         //this will rotate the player towards the mouse position
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

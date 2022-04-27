@@ -31,16 +31,19 @@ public class CharacterWeapon : MonoBehaviourPun
             case 0:
                 Debug.Log("ERROR, NO WEAPON HAS 0 HAs THE INT To Switch");
                 break;
+            //if the weapon to switch to is 1 that means we want to make the knife visible and the rest invisible
             case 1:
                 knife.gameObject.SetActive(true);
                 pistol.gameObject.SetActive(false);
                 rifle.gameObject.SetActive(false);
                 break;
+            //if the weapon to switch to is 2 that means we want to make the pistol visible and the rest invisible
             case 2:
                 knife.gameObject.SetActive(false);
                 pistol.gameObject.SetActive(true);
                 rifle.gameObject.SetActive(false);
                 break;
+            //if the weapon to switch to is 3 that means we want to make the rifle visible and the rest invisible
             case 3:
                 knife.gameObject.SetActive(false);
                 pistol.gameObject.SetActive(false);
@@ -49,10 +52,13 @@ public class CharacterWeapon : MonoBehaviourPun
         }
     }
 
+    
     private void Update()
     {
+        //if the photon vie is mine, and we can switch weapons
         if(photonView.IsMine && blockWeaponSwitch == false)
         {
+            //this will handle the input for weapon swicthing
             TakeInput();
         }
 

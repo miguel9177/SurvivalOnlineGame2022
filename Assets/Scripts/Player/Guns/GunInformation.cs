@@ -27,6 +27,7 @@ public struct Gun
 //this script will store the gun information, with this i can have multiple types of weapons and just sedn the information here
 public abstract class GunInformation : MonoBehaviourPun
 {
+    //this will create a variable for the gun struct, making it have all the statics of the weapon here
     public Gun gun;
 
     //this will be from 3 to 1, 1 is a rifle, 2 is a pistol 3 is a knife
