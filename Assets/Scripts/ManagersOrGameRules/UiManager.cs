@@ -39,8 +39,8 @@ public class UiManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         //this will assign the textbox to the gun
-        player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtBulletsOfWeapon = txtBulletsOfWeapon;
-        player.GetComponent<CharacterWeapon>().weapon.GetComponent<GunInformation>().txtReloadInformation = txtReloadInformation;
+        player.GetComponent<CharacterWeapon>().currentUsedWeapon.GetComponent<GunInformation>().txtBulletsOfWeapon = txtBulletsOfWeapon;
+        player.GetComponent<CharacterWeapon>().currentUsedWeapon.GetComponent<GunInformation>().txtReloadInformation = txtReloadInformation;
         //this will assign the textbox to the player
         player.GetComponent<PlayerStatsAndFunctionalities>().txtPlayerHp = txtPlayerHp;
     }

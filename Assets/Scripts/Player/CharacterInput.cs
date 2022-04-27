@@ -92,6 +92,25 @@ public class CharacterInput : MonoBehaviourPun
             WeaponHolder.Reload();
         }
 
+        //if the user clicked 1, change the weapon to the rifle
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            WeaponHolder.switchWeapon(1);
+        }
+        //if the user clicked 2, change the weapon to the pistol
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            WeaponHolder.switchWeapon(2);
+        }
+        //if the user clicked 3, change the weapon to the knife
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            WeaponHolder.switchWeapon(3);
+        }
+        
     
 
         //this will rotate the player towards the mouse position

@@ -3,39 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[System.Serializable]
-struct Gun
-{
-    //initialize every variable necessary for a gun
-    public float damage;
-    public float rateOfFire;
-    public float bulletSpeed;
-    public float reloadTime;
-    public float moneyWorth;
-    public int currentBulletsOnMagazine;
-    public int bulletsPerMagazine;
-    public int spareBullets;
-    public float weight;
-    public Sprite gunImage;
-    public Transform bulletSpawnPos;
-}
 
-[RequireComponent(typeof(GunInformation))]
-public class NormalGun : MonoBehaviourPun
-{
-    [SerializeField]
-    //this will store the settings of this gun
-    Gun gun;
 
-    [SerializeField]
-    NormalBullet bullet;
+
+
+public class NormalGun : GunInformation
+{
+
+
+  
 
     [SerializeField]
     //i need to store this script here, so that i can know wich player shot the bullet so that i can know who to give the money
     PlayerStatsAndFunctionalities playerStats;
 
-    //this will store the gun information script, so that it can assign the shoot function and this script receive the text for the bullets
-    GunInformation gunInformation;
 
     //this bool will be true when we are reloading
     bool reloading = false;
@@ -45,12 +26,11 @@ public class NormalGun : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        //get the script
-        gunInformation = this.gameObject.GetComponent<GunInformation>();
+        
         //delegate the function callshoot to the gun information
-        gunInformation.firingMethod = CallShootFunction;
+        //gunInformation.firingMethod = CallShootFunction;
         //delegate the function reload to the gun information
-        gunInformation.reloadMethod = Reload;
+        reloadMethod = Reload;
         //call the late start courotine, so that we can update the bullets texzt, it needs to be called after every start, so that we have everything setted before, and like this we wont receive errors
         StartCoroutine(LateStart());   
     }
@@ -64,7 +44,7 @@ public class NormalGun : MonoBehaviourPun
 
     #region delegated functions, they are delegated to the gun information, and the character inpu calls them
     //this is called by the Character input script
-    public void CallShootFunction()
+    public override void CallShootFunction()
     {
         //if we have bullets on the magazine, and we are not reloading, and we can shoot
         if(gun.currentBulletsOnMagazine > 0 && reloading == false && canISHoot==true)
@@ -93,7 +73,7 @@ public class NormalGun : MonoBehaviourPun
         if (gun.currentBulletsOnMagazine < gun.bulletsPerMagazine && gun.spareBullets > 0)
         {
             //make the text saying the user is reloading visible
-            gunInformation.txtReloadInformation.gameObject.SetActive(true);
+            txtReloadInformation.gameObject.SetActive(true);
             //tell the code that im reloading
             reloading = true;
             //call the coroutine that will make the player stop reloading
@@ -107,7 +87,7 @@ public class NormalGun : MonoBehaviourPun
     {
         yield return new WaitForSeconds(timeToReload);
         //make the text saying the gun is reloading visible
-        gunInformation.txtReloadInformation.gameObject.SetActive(false);
+        txtReloadInformation.gameObject.SetActive(false);
         //tell the code that we stopped reloading
         reloading = false;
         
@@ -149,7 +129,7 @@ public class NormalGun : MonoBehaviourPun
         //if this photon view is mine, edit the text of the bullets, like this i only see my bullets
         if(photonView.IsMine)
             //write on the text the number of bullets
-            gunInformation.txtBulletsOfWeapon.text = gun.currentBulletsOnMagazine.ToString() + " / " + gun.spareBullets.ToString();
+            txtBulletsOfWeapon.text = gun.currentBulletsOnMagazine.ToString() + " / " + gun.spareBullets.ToString();
     }
 
    

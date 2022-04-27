@@ -339,7 +339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa4f1029dd68a3448445a133ab9eb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 5018839421159032626}
+  knifeWeapon: {fileID: 0}
+  pistolWeapon: {fileID: 0}
+  rifleWeapon: {fileID: 0}
+  currentUsedWeapon: {fileID: 0}
 --- !u!114 &7905561698147307918
 MonoBehaviour:
   m_ObjectHideFlags: 0

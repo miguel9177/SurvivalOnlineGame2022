@@ -29,7 +29,7 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
 
     [SerializeField]
     //this will hold the player animator (on the gameobject that holds the sprites and the animator)
-    private Animator playerAnimator;
+    public Animator playerAnimator;
 
     [SerializeField]
     //this will hold the player parameter to die from the animator
@@ -55,6 +55,12 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         //this will get the players collider
         colliderOfPlayer = GetComponent<Collider2D>();
 
+    }
+
+    //this is accesed from the buying stations
+    public void UpdateMoneyText()
+    {
+        moneyText.text = playerStats.money + "p";
     }
 
     //this will be called when we lose hp, for example, it will be called from the normal ai script
