@@ -3,17 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-
-
-
-
 public class NormalGun : GunInformation
 {
-
-
-
-
-
     //this bool will be true when we are reloading
     bool reloading = false;
     //this will be true when i can shoot, this  will let me control the rate of fire
@@ -22,13 +13,37 @@ public class NormalGun : GunInformation
     // Start is called before the first frame update
     void Start()
     {
-        
-        //delegate the function callshoot to the gun information
-        //gunInformation.firingMethod = CallShootFunction;
-        //delegate the function reload to the gun information
-        reloadMethod = Reload;
         //call the late start courotine, so that we can update the bullets texzt, it needs to be called after every start, so that we have everything setted before, and like this we wont receive errors
         StartCoroutine(LateStart());   
+    }
+
+    private void Update()
+    {
+        if(photonView.IsMine)
+        {
+            TakeInput();
+        }
+    }
+
+    void OnEnable()
+    {
+        UpdateBulletsText();
+        canISHoot = true;
+    }
+
+    void TakeInput()
+    {
+        //if the left mouse is clicked
+        if (Input.GetMouseButton(0))
+        {
+            CallShootFunction();
+        }
+
+        //if we click R call the delegated reload function
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
     }
 
     IEnumerator LateStart()
@@ -81,6 +96,8 @@ public class NormalGun : GunInformation
     //this will be called by the relad function, and will wait for the reloading to endd, when it does, it will do the rest of the code
     IEnumerator Reloading(float timeToReload)
     {
+        //this will block the weapon switch to avoid bugs, while reloading
+        characterWeaponsScript.blockWeaponSwitch = true;
         yield return new WaitForSeconds(timeToReload);
         //make the text saying the gun is reloading visible
         txtReloadInformation.gameObject.SetActive(false);
@@ -100,6 +117,8 @@ public class NormalGun : GunInformation
             gun.spareBullets = 0;
         }
         UpdateBulletsText();
+        //this will unblock the weapon switch
+        characterWeaponsScript.blockWeaponSwitch = false;
     }
 
     [PunRPC]
@@ -117,6 +136,7 @@ public class NormalGun : GunInformation
         gun.currentBulletsOnMagazine -= 1;
         //call th function to update the text o fthe bullets
         UpdateBulletsText();
+        Debug.Log("Shooting");
     }
 
     //this function will write the correct text on the bullets text

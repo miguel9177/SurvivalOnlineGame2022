@@ -17,10 +17,6 @@ public class CharacterInput : MonoBehaviourPun
     Vector2 movement;
 
     [SerializeField]
-    //this will get the character weapon script, that is basically a placeholder for every weapon
-    CharacterWeapon WeaponHolder;
-
-    [SerializeField]
     //this will hold the player animator (on the gameobject that holds the sprites and the animator)
     private Animator playerAnimator;
 
@@ -49,7 +45,7 @@ public class CharacterInput : MonoBehaviourPun
             //call the function that gets the input and moves the object
             TakeInput();
         }
-        else
+        else if(blockPlayerInput == true)
         {
             //if the input is blocked, we stop the player movement
             movement = Vector2.zero;
@@ -78,40 +74,7 @@ public class CharacterInput : MonoBehaviourPun
         //this will get if the player is moving on a float, so that i can pass it to the animator
         float totalMovement = movement.x+movement.y;
         //send the movement value to the animator
-        playerAnimator.SetFloat(walkParameterFloatName, Mathf.Abs(totalMovement));
-
-        //if the left mouse is clicked
-        if (Input.GetMouseButton(0))
-        {
-            WeaponHolder.Shoot();
-        }
-
-        //if we click R call the delegated reload function
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            WeaponHolder.Reload();
-        }
-
-        //if the user clicked 1, change the weapon to the rifle
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //switch weapon and let the characetr weapon script know wich number i swicthed to
-            WeaponHolder.switchWeapon(1);
-        }
-        //if the user clicked 2, change the weapon to the pistol
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //switch weapon and let the characetr weapon script know wich number i swicthed to
-            WeaponHolder.switchWeapon(2);
-        }
-        //if the user clicked 3, change the weapon to the knife
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //switch weapon and let the characetr weapon script know wich number i swicthed to
-            WeaponHolder.switchWeapon(3);
-        }
-        
-    
+        playerAnimator.SetFloat(walkParameterFloatName, Mathf.Abs(totalMovement));    
 
         //this will rotate the player towards the mouse position
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

@@ -1,153 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CharacterWeapon : MonoBehaviour
+using Photon.Pun;
+public class CharacterWeapon : MonoBehaviourPun
 {
-  
-
     [SerializeField]
-    //this is going to store the current knife character weapon
-    public GunInformation knifeWeapon;
-    //this will store the knife info of this knife, since we cant edit anything on the knife variable directly, or it will change the prefab
-    Gun knifeWeaponInfo;
-
+    //this will store the knife weapon 
+    public GunInformation knife;
     [SerializeField]
-    //this is going to store the current pistol character weapon
-    public GunInformation pistolWeapon;
-    //this will store the info of this pistol, since we cant edit anything on the pistol variable directly, or it will change the prefab
-    Gun pistolWeaponInfo;
-
+    //this will store the pistol weapon 
+    public GunInformation pistol;
     [SerializeField]
-    //this is going to store the current rifle character weapon
-    public GunInformation rifleWeapon;
-    //this will store the info of this rifle, since we cant edit anything on the rifle variable directly, or it will change the prefab
-    Gun rifleWeaponInfo;
+    //this will store the rifle weapon 
+    public GunInformation rifle;
 
-    [SerializeField]
-    [Header("this needs to be set to the gun that is a child of this object")]
-    //this will hold the current weapon being used
-    public GunInformation currentUsedWeapon;
-
-    //value from 1 to 3 , 1 is a rifle, 2 is a pistol, 3 is a knife
-    int currentUsedWeaponId = 2;
+    //if this is true it will block the weapon switch, this is accessed by the normalGun
+    public bool blockWeaponSwitch = false;
 
     private void Awake()
     {
-        //this will store the rifle bullet information
-        rifleWeaponInfo.currentBulletsOnMagazine = rifleWeapon.gun.currentBulletsOnMagazine;
-        rifleWeaponInfo.spareBullets = rifleWeapon.gun.spareBullets;
-
-        pistolWeaponInfo.currentBulletsOnMagazine = pistolWeapon.gun.currentBulletsOnMagazine;
-        pistolWeaponInfo.spareBullets = pistolWeapon.gun.spareBullets;
-
-        knifeWeaponInfo.currentBulletsOnMagazine = knifeWeapon.gun.currentBulletsOnMagazine;
-        knifeWeaponInfo.spareBullets = knifeWeapon.gun.spareBullets;
-
-        //currentUsedWeapon = pistolWeapon;
         switchWeapon(2);
     }
 
     //this will switch weapons of the player, its called from the character input
     public void switchWeapon(int weaponToSwitchTo_int)
     {
-        //this will store the weapon that we are going to change to
-        Gun weaponToSwitchTo = new Gun();
-        //this will store the weapon info of the weapon we are going to change to
-        Gun bulletInformationOfWeaponToChangeTo = new Gun();
         //this will store the bullet info of the old weapon before switching guns
-        switch (currentUsedWeaponId)
-        {
-            case 0:
-                Debug.Log("ERROR, NO WEAPON HAS 0 HAs THE INT To Switch");
-                break;
-            case 1:
-                rifleWeaponInfo.currentBulletsOnMagazine = currentUsedWeapon.gun.currentBulletsOnMagazine;
-                rifleWeaponInfo.spareBullets = currentUsedWeapon.gun.spareBullets;
-                break;
-            case 2:
-                pistolWeaponInfo.currentBulletsOnMagazine = currentUsedWeapon.gun.currentBulletsOnMagazine;
-                pistolWeaponInfo.spareBullets = currentUsedWeapon.gun.spareBullets;
-                break;
-            case 3:
-                knifeWeaponInfo.currentBulletsOnMagazine = currentUsedWeapon.gun.currentBulletsOnMagazine;
-                knifeWeaponInfo.spareBullets = currentUsedWeapon.gun.spareBullets;
-                break;
-        }
-
-        //changed the current weapon to the weapon we just switched to 
         switch (weaponToSwitchTo_int)
         {
             case 0:
                 Debug.Log("ERROR, NO WEAPON HAS 0 HAs THE INT To Switch");
                 break;
             case 1:
-                weaponToSwitchTo = rifleWeapon.gun; 
-                currentUsedWeaponId = weaponToSwitchTo_int;
-                bulletInformationOfWeaponToChangeTo = rifleWeaponInfo;
+                knife.gameObject.SetActive(true);
+                pistol.gameObject.SetActive(false);
+                rifle.gameObject.SetActive(false);
                 break;
             case 2:
-                weaponToSwitchTo = pistolWeapon.gun;
-                currentUsedWeaponId = weaponToSwitchTo_int;
-                bulletInformationOfWeaponToChangeTo = pistolWeaponInfo;
+                knife.gameObject.SetActive(false);
+                pistol.gameObject.SetActive(true);
+                rifle.gameObject.SetActive(false);
                 break;
             case 3:
-                weaponToSwitchTo = knifeWeapon.gun;
-                currentUsedWeaponId = weaponToSwitchTo_int;
-                bulletInformationOfWeaponToChangeTo = knifeWeaponInfo;
+                knife.gameObject.SetActive(false);
+                pistol.gameObject.SetActive(false);
+                rifle.gameObject.SetActive(true);
                 break;
         }
-
-        //edit every gun infromation except the spawn and image
-        currentUsedWeapon.gun.damage = weaponToSwitchTo.damage;
-        currentUsedWeapon.gun.rateOfFire = weaponToSwitchTo.rateOfFire;
-        currentUsedWeapon.gun.bulletSpeed = weaponToSwitchTo.bulletSpeed;
-        currentUsedWeapon.gun.reloadTime = weaponToSwitchTo.reloadTime;
-        currentUsedWeapon.gun.moneyWorth = weaponToSwitchTo.moneyWorth;        
-        currentUsedWeapon.gun.bulletsPerMagazine = weaponToSwitchTo.bulletsPerMagazine;
-
-        currentUsedWeapon.gun.currentBulletsOnMagazine = bulletInformationOfWeaponToChangeTo.currentBulletsOnMagazine;
-        currentUsedWeapon.gun.spareBullets = bulletInformationOfWeaponToChangeTo.spareBullets;
-
-        currentUsedWeapon.gun.weight = weaponToSwitchTo.weight;
-
-        //change the bullet
-        currentUsedWeapon.gun.bullet = weaponToSwitchTo.bullet;
-
-        //change the gun image
-        currentUsedWeapon.gun.gunImage = weaponToSwitchTo.gunImage;
-        currentUsedWeapon.gameObject.GetComponent<SpriteRenderer>().sprite = weaponToSwitchTo.gunImage;
-
-        //rescale to the weapon scale
-        currentUsedWeapon.transform.localScale = weaponToSwitchTo.scaleOfWeapon;
-
-        //this will change the bullet spawn point to the obe of this gun
-        currentUsedWeapon.gun.bulletSpawnPos.transform.localPosition = weaponToSwitchTo.bulletSpawnPos.transform.localPosition;        
-        
-
-        currentUsedWeapon.UpdateBulletsText();
-        
-        
     }
 
-    //this will store the infromation of the switched weapon
-    void StoreInformationOfTheSwitchedWeapon()
-    { 
-    
-    }
-
-    public void Shoot()
+    private void Update()
     {
-        //call the function that is going to shoot
-        currentUsedWeapon.GetComponent<GunInformation>().CallShootFunction();   
-    }
-    
+        if(photonView.IsMine && blockWeaponSwitch == false)
+        {
+            TakeInput();
+        }
 
-    public void Reload()
-    {
-        //call the function that is going to reload
-        currentUsedWeapon.GetComponent<GunInformation>().reloadMethod();
     }
+
+    void TakeInput()
+    {
+        //if the user clicked 1, change the weapon to the rifle
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            switchWeapon(1);
+        }
+        //if the user clicked 2, change the weapon to the pistol
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            switchWeapon(2);
+        }
+        //if the user clicked 3, change the weapon to the knife
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //switch weapon and let the characetr weapon script know wich number i swicthed to
+            switchWeapon(3);
+        }
+    }
+
 
 
 }

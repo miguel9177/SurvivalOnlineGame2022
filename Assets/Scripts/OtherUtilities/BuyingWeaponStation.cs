@@ -49,7 +49,7 @@ public class BuyingWeaponStation : MonoBehaviour
     public void BuyWeapon()
     {
         //this will get the player statics scrript
-        PlayerStatsAndFunctionalities playerStatsScript;
+       /* PlayerStatsAndFunctionalities playerStatsScript;
         playerStatsScript = myPlayer.GetComponent<PlayerStatsAndFunctionalities>();
 
         //if we have enough money to buy a weapon
@@ -90,6 +90,6 @@ public class BuyingWeaponStation : MonoBehaviour
             //update the texts
             playerStatsScript.UpdateMoneyText();
             playerGunInformation.UpdateBulletsText();
-        }
+        }*/
     }
 }
