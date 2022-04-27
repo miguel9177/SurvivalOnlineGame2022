@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9221472577477971017}
   - component: {fileID: 9221472577477971019}
   m_Layer: 0
-  m_Name: pistolLarc16
+  m_Name: Knife
   m_TagString: NormalGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9221472577477971018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.99756765, w: 0.069705576}
+  m_LocalPosition: {x: -0.251, y: 0.254, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9221472578634914367}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -172.006}
 --- !u!114 &9221472577477971019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,16 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun:
-    damage: 20
-    rateOfFire: 0.2
-    bulletSpeed: 500
-    reloadTime: 2
-    moneyWorth: 200
-    currentBulletsOnMagazine: 50
-    bulletsPerMagazine: 50
-    spareBullets: 120
-    weight: 2
-    gunImage: {fileID: 21300000, guid: f79aa4a8422ac4340820ba0799a3a257, type: 3}
+    damage: 99
+    rateOfFire: 0.5
+    bulletSpeed: 0
+    reloadTime: 0
+    moneyWorth: 10
+    currentBulletsOnMagazine: 0
+    bulletsPerMagazine: 0
+    spareBullets: 0
+    weight: 0
+    gunImage: {fileID: 21300000, guid: af3e1f6f4a4a60f489e0f8f036802bba, type: 3}
     bulletSpawnPos: {fileID: 9221472578634914367}
   typeOfWeapon: 2
   bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9221472578634914366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.454, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9221472577477971017}

@@ -49,11 +49,20 @@ public abstract class GunInformation : MonoBehaviourPun
     //this is the textbox for the reload information
     public TextMeshProUGUI txtReloadInformation;
 
-    
+
+
+    [SerializeField]
+    //i need to store this script here, so that i can know wich player shot the bullet so that i can know who to give the money
+    public PlayerStatsAndFunctionalities playerStats;
+
     public virtual void CallShootFunction()
     {
 
     }
 
+    public virtual void UpdateBulletsText()
+    {
+
+    }
 
 }

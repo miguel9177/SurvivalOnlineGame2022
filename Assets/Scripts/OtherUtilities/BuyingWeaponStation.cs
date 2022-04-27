@@ -24,6 +24,9 @@ public class BuyingWeaponStation : MonoBehaviour
         {
             //show the buy button, since we are in buying area
             buttonToBuy.gameObject.SetActive(true);
+            //tell the button buy that we on click, he will buy our weapon
+            buttonToBuy.onClick.AddListener(BuyWeapon);
+
             //tell the code that this is my player
             myPlayer = collision.gameObject;
         }
@@ -37,19 +40,24 @@ public class BuyingWeaponStation : MonoBehaviour
         {
             //hide the buy button, since we are in buying area
             buttonToBuy.gameObject.SetActive(false);
+            //since we left the buy zone we remove all listeners, since we cant buy the weapon
+            buttonToBuy.onClick.RemoveAllListeners();
         }
     }
 
     //this will buy the weapon
     public void BuyWeapon()
     {
+        //this will get the player statics scrript
         PlayerStatsAndFunctionalities playerStatsScript;
         playerStatsScript = myPlayer.GetComponent<PlayerStatsAndFunctionalities>();
 
+        //if we have enough money to buy a weapon
         if (playerStatsScript.playerStats.money >= weaponToBuy.gun.moneyWorth)
         {
+            //decrease the money since we bought the weapon
             playerStatsScript.playerStats.money -= weaponToBuy.gun.moneyWorth;
-            playerStatsScript.UpdateMoneyText();
+            
 
             //this will get the player gun
             GunInformation playerGunInformation;
@@ -66,11 +74,22 @@ public class BuyingWeaponStation : MonoBehaviour
             playerGunInformation.gun.spareBullets = weaponToBuy.gun.spareBullets;
             playerGunInformation.gun.weight = weaponToBuy.gun.weight;
 
+            //change the bullet
             playerGunInformation.bullet = weaponToBuy.bullet;
 
             //change the gun image
             playerGunInformation.gun.gunImage = weaponToBuy.gun.gunImage;
             playerGunInformation.gameObject.GetComponent<SpriteRenderer>().sprite = weaponToBuy.gun.gunImage;
+
+            //rescale to the weapon scale
+            playerGunInformation.transform.localScale = weaponToBuy.gameObject.transform.localScale;
+
+            //this will change the bullet spawn point to the obe of this gun
+            playerGunInformation.gun.bulletSpawnPos.transform.localPosition = weaponToBuy.gun.bulletSpawnPos.transform.localPosition;
+
+            //update the texts
+            playerStatsScript.UpdateMoneyText();
+            playerGunInformation.UpdateBulletsText();
         }
     }
 }

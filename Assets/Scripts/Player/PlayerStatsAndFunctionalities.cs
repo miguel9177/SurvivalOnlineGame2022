@@ -54,12 +54,14 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         characterInputScript = GetComponent<CharacterInput>();
         //this will get the players collider
         colliderOfPlayer = GetComponent<Collider2D>();
-
+        
     }
 
     //this is accesed from the buying stations
     public void UpdateMoneyText()
     {
+        //i check this since this is added by the ui manager
+        if(moneyText != null)
         moneyText.text = playerStats.money + "p";
     }
 

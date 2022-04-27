@@ -115,7 +115,7 @@ Transform:
   m_Children:
   - {fileID: 4626573625825821726}
   m_Father: {fileID: 5018839419928201616}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9080987842520498864
 SpriteRenderer:
@@ -234,7 +234,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5018839421159032625}
   - {fileID: 1318470811801546711}
   - {fileID: 1260501036826770990}
   m_Father: {fileID: 0}
@@ -302,7 +301,7 @@ MonoBehaviour:
   playerStats:
     hp: 100
     kills: 0
-    money: 0
+    money: 1000
     revives: 0
   moneyText: {fileID: 0}
   txtPlayerHp: {fileID: 0}
@@ -339,10 +338,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa4f1029dd68a3448445a133ab9eb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeWeapon: {fileID: 7076338437487642964}
-  pistolWeapon: {fileID: 7076338437487642964}
-  rifleWeapon: {fileID: 7076338437487642964}
-  currentUsedWeapon: {fileID: 0}
+  knifeWeapon: {fileID: 9221472577477971019, guid: d2f4408594b86fd46a07deb3d7cdf90e, type: 3}
+  pistolWeapon: {fileID: 9221472577477971019, guid: 9429ca7b00d3b384ea2c25793a54b3f5, type: 3}
+  rifleWeapon: {fileID: 9221472577477971019, guid: 90b18152ec43a904db31022fbbb431f2, type: 3}
+  currentUsedWeapon: {fileID: 7076338437487642964}
 --- !u!114 &7905561698147307918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +395,7 @@ GameObject:
   - component: {fileID: 7334017380844485131}
   - component: {fileID: 2467017362563505123}
   m_Layer: 0
-  m_Name: Rifle
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,12 +408,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5018839421159032626}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.043, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.116, y: 0.475, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 108078696396479647}
-  m_Father: {fileID: 5018839419928201616}
+  m_Father: {fileID: 1318470811801546711}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &7076338437487642964
@@ -508,16 +507,16 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: f79aa4a8422ac4340820ba0799a3a257, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.33, y: 4.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5192585105442275367
@@ -549,9 +548,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 1.215, y: 0.116, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5018839421159032625}
   m_Father: {fileID: 5018839419928201616}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &2433327215274153779
 SpriteRenderer:

@@ -43,6 +43,7 @@ public class UiManager : MonoBehaviour
         player.GetComponent<CharacterWeapon>().currentUsedWeapon.GetComponent<GunInformation>().txtReloadInformation = txtReloadInformation;
         //this will assign the textbox to the player
         player.GetComponent<PlayerStatsAndFunctionalities>().txtPlayerHp = txtPlayerHp;
+        player.GetComponent<PlayerStatsAndFunctionalities>().UpdateMoneyText();
     }
 
    

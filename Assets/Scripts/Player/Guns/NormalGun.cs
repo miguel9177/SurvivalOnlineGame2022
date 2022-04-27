@@ -11,11 +11,7 @@ public class NormalGun : GunInformation
 {
 
 
-  
 
-    [SerializeField]
-    //i need to store this script here, so that i can know wich player shot the bullet so that i can know who to give the money
-    PlayerStatsAndFunctionalities playerStats;
 
 
     //this bool will be true when we are reloading
@@ -124,10 +120,10 @@ public class NormalGun : GunInformation
     }
 
     //this function will write the correct text on the bullets text
-    void UpdateBulletsText()
+    public override void UpdateBulletsText()
     {
         //if this photon view is mine, edit the text of the bullets, like this i only see my bullets
-        if(photonView.IsMine)
+        if(photonView.IsMine && txtBulletsOfWeapon != null)
             //write on the text the number of bullets
             txtBulletsOfWeapon.text = gun.currentBulletsOnMagazine.ToString() + " / " + gun.spareBullets.ToString();
     }
