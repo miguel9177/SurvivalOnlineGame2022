@@ -90,7 +90,7 @@ MonoBehaviour:
     bulletSpawnPos: {fileID: 5296126328649745572}
     bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
     scaleOfWeapon: {x: 1, y: 1}
-  typeOfWeapon: 2
+    typeOfWeapon: 3
   txtBulletsOfWeapon: {fileID: 0}
   txtReloadInformation: {fileID: 0}
   characterWeaponsScript: {fileID: 0}

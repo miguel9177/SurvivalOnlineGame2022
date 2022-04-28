@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34eb9c910ac9184ea9304499d940f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponToBuy: {fileID: 9221472577477971019, guid: 90b18152ec43a904db31022fbbb431f2, type: 3}
+  weaponToBuy: {fileID: 1594646628794696893, guid: 31e85287ee75c9242a3e603ed6a1ce81, type: 3}
   buttonToBuy: {fileID: 622619338}
 --- !u!61 &1910298860
 BoxCollider2D:
@@ -2274,7 +2274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34eb9c910ac9184ea9304499d940f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponToBuy: {fileID: 9221472577477971019, guid: 9429ca7b00d3b384ea2c25793a54b3f5, type: 3}
+  weaponToBuy: {fileID: 2151397536328400520, guid: 9429ca7b00d3b384ea2c25793a54b3f5, type: 3}
   buttonToBuy: {fileID: 622619338}
 --- !u!1001 &2001471617
 PrefabInstance:

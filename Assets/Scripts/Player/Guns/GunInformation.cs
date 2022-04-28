@@ -22,6 +22,8 @@ public struct Gun
     public Transform bulletSpawnPos;
     public NormalBullet bullet;
     public Vector2 scaleOfWeapon;
+    //this will be from 3 to 1, 1 is a rifle, 2 is a pistol 3 is a knife
+    public int typeOfWeapon;
 }
 
 //this script will store the gun information, with this i can have multiple types of weapons and just sedn the information here
@@ -29,9 +31,6 @@ public abstract class GunInformation : MonoBehaviourPun
 {
     //this will create a variable for the gun struct, making it have all the statics of the weapon here
     public Gun gun;
-
-    //this will be from 3 to 1, 1 is a rifle, 2 is a pistol 3 is a knife
-    public int typeOfWeapon;
 
     [HideInInspector]
     //this is the textbox for the bullets of the weapon, this is assigned by the uimanager

@@ -49,47 +49,34 @@ public class BuyingWeaponStation : MonoBehaviour
     public void BuyWeapon()
     {
         //this will get the player statics scrript
-       /* PlayerStatsAndFunctionalities playerStatsScript;
+        PlayerStatsAndFunctionalities playerStatsScript;
         playerStatsScript = myPlayer.GetComponent<PlayerStatsAndFunctionalities>();
 
         //if we have enough money to buy a weapon
         if (playerStatsScript.playerStats.money >= weaponToBuy.gun.moneyWorth)
         {
-            //decrease the money since we bought the weapon
-            playerStatsScript.playerStats.money -= weaponToBuy.gun.moneyWorth;
+           
             
 
-            //this will get the player gun
-            GunInformation playerGunInformation;
-            playerGunInformation = myPlayer.GetComponent<CharacterWeapon>().currentUsedWeapon;
-
-            //edit every gun infromation except the spawn and image
-            playerGunInformation.gun.damage = weaponToBuy.gun.damage;
-            playerGunInformation.gun.rateOfFire = weaponToBuy.gun.rateOfFire;
-            playerGunInformation.gun.bulletSpeed = weaponToBuy.gun.bulletSpeed;
-            playerGunInformation.gun.reloadTime = weaponToBuy.gun.reloadTime;
-            playerGunInformation.gun.moneyWorth = weaponToBuy.gun.moneyWorth;
-            playerGunInformation.gun.currentBulletsOnMagazine = weaponToBuy.gun.currentBulletsOnMagazine;
-            playerGunInformation.gun.bulletsPerMagazine = weaponToBuy.gun.bulletsPerMagazine;
-            playerGunInformation.gun.spareBullets = weaponToBuy.gun.spareBullets;
-            playerGunInformation.gun.weight = weaponToBuy.gun.weight;
-
-            //change the bullet
-            playerGunInformation.gun.bullet = weaponToBuy.gun.bullet;
-
-            //change the gun image
-            playerGunInformation.gun.gunImage = weaponToBuy.gun.gunImage;
-            playerGunInformation.gameObject.GetComponent<SpriteRenderer>().sprite = weaponToBuy.gun.gunImage;
-
-            //rescale to the weapon scale
-            playerGunInformation.transform.localScale = weaponToBuy.gameObject.transform.localScale;
-
-            //this will change the bullet spawn point to the obe of this gun
-            playerGunInformation.gun.bulletSpawnPos.transform.localPosition = weaponToBuy.gun.bulletSpawnPos.transform.localPosition;
+            switch (weaponToBuy.gun.typeOfWeapon)
+            {
+                case 0:
+                    Debug.Log("ERROR, NO WEAPON HAS 0 HAs THE INT To Switch");
+                    break;
+                case 1:
+                    myPlayer.GetComponent<CharacterWeapon>().rifle = weaponToBuy;
+                    break;
+                case 2:
+                    myPlayer.GetComponent<CharacterWeapon>().pistol = weaponToBuy;
+                    break;
+                case 3:
+                    myPlayer.GetComponent<CharacterWeapon>().knife = weaponToBuy;
+                    break;
+            }
 
             //update the texts
             playerStatsScript.UpdateMoneyText();
-            playerGunInformation.UpdateBulletsText();
-        }*/
+            //playerGunInformation.UpdateBulletsText();
+        }
     }
 }
