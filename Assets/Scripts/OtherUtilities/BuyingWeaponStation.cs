@@ -129,7 +129,7 @@ public class BuyingWeaponStation : MonoBehaviour
 
             //update the texts
             playerStatsScript.UpdateMoneyText();
-            //playerGunInformation.UpdateBulletsText();
+            weaponToBuy.UpdateBulletsText();
         }
     }
 }

@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3116481160595977050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.124, z: 0}
+  m_LocalPosition: {x: -0.018, y: -0.109, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1992325970703753998}
@@ -43,12 +43,12 @@ GameObject:
   - component: {fileID: 1773750482640470856}
   - component: {fileID: 6383042930979485269}
   m_Layer: 0
-  m_Name: rifleLancher
+  m_Name: rifleToBuy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1992325970703753998
 Transform:
   m_ObjectHideFlags: 0
@@ -56,14 +56,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8858789495486117997}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.116, y: 0.475, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
   - {fileID: 3987565877809177348}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1594646628794696893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,17 +79,17 @@ MonoBehaviour:
   gun:
     damage: 99
     rateOfFire: 2
-    bulletSpeed: 500
+    bulletSpeed: 100
     reloadTime: 3
     moneyWorth: 200
-    currentBulletsOnMagazine: 2
-    bulletsPerMagazine: 2
-    spareBullets: 20
+    currentBulletsOnMagazine: 999
+    bulletsPerMagazine: 999
+    spareBullets: 999
     weight: 2
-    gunImage: {fileID: 21300000, guid: 15128c9b2aff7b24aa995f38ead7f23f, type: 3}
+    gunImage: {fileID: 21300000, guid: 9bb4f533e6cbd2d4b8e89b5305d3b512, type: 3}
     bulletSpawnPos: {fileID: 3987565877809177348}
     bullet: {fileID: 1018479471301581774, guid: dc2beeed504389043934a562daadd701, type: 3}
-    scaleOfWeapon: {x: 0.43, y: 0.43}
+    scaleOfWeapon: {x: 4, y: 4}
     typeOfWeapon: 1
   txtBulletsOfWeapon: {fileID: 0}
   txtReloadInformation: {fileID: 0}
@@ -158,12 +158,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 15128c9b2aff7b24aa995f38ead7f23f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9bb4f533e6cbd2d4b8e89b5305d3b512, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.33, y: 4.33}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

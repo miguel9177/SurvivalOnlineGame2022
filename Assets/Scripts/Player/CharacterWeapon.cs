@@ -19,7 +19,7 @@ public class CharacterWeapon : MonoBehaviourPun
 
     private void Awake()
     {
-        switchWeapon(2);
+        //switchWeapon(2);
     }
 
     //this will switch weapons of the player, its called from the character input
@@ -33,9 +33,10 @@ public class CharacterWeapon : MonoBehaviourPun
                 break;
             //if the weapon to switch to is 1 that means we want to make the knife visible and the rest invisible
             case 1:
-                knife.gameObject.SetActive(true);
+                knife.gameObject.SetActive(false);
                 pistol.gameObject.SetActive(false);
-                rifle.gameObject.SetActive(false);
+                rifle.gameObject.SetActive(true);
+               
                 break;
             //if the weapon to switch to is 2 that means we want to make the pistol visible and the rest invisible
             case 2:
@@ -45,9 +46,9 @@ public class CharacterWeapon : MonoBehaviourPun
                 break;
             //if the weapon to switch to is 3 that means we want to make the rifle visible and the rest invisible
             case 3:
-                knife.gameObject.SetActive(false);
+                knife.gameObject.SetActive(true);
                 pistol.gameObject.SetActive(false);
-                rifle.gameObject.SetActive(true);
+                rifle.gameObject.SetActive(false);
                 break;
         }
     }
