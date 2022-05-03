@@ -42,9 +42,6 @@ public class PlayerSpawner : MonoBehaviourPun
             //if we do the if photonView.IsMine, and will spawn it on 000 positionm and 000 rotation
             player = PhotonNetwork.Instantiate(playerPrefabWoman.name, spawnPoint2.position, Quaternion.identity);
         }
-        
-
-       
 
         //asssign the money textbox to the player statas and functionalities script
         player.GetComponent<PlayerStatsAndFunctionalities>().moneyText = playerMoneyText;

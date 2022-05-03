@@ -9,9 +9,12 @@ using Photon.Pun;
 public struct PlayerStats
 {
     public int hp;
+    public int maxHp;
     public int kills;
     public float money;
     public int revives;
+    //this will store the icon image of the player (the image above the hpbar)
+    public Sprite iconOfSkin;
 }
 public class PlayerStatsAndFunctionalities : MonoBehaviourPun
 {
@@ -48,13 +51,23 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
     //this will be true when this player dies
     public bool amIDead=false;
 
+    //this will store the uiManager Script
+    UiManager uiManagerScript;
+
+    //this will store the index of this player
+    int indexOfThisPlayer;
+
     private void Start()
     {
         //this will hold the character input script, because when the player dies, i need to stop the script from taking input
         characterInputScript = GetComponent<CharacterInput>();
         //this will get the players collider
         colliderOfPlayer = GetComponent<Collider2D>();
-        
+
+        //this will get the ui manager component
+        uiManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<UiManager>();
+        //this will send this player stats and functionalities, to the ui manager so it can store all the players and their hp bars
+        indexOfThisPlayer = uiManagerScript.PlayerSpawned(this);
     }
 
     //this is accesed from the buying stations
@@ -79,11 +92,8 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
                 //this will call the function Die, on every pc on the server
                 photonView.RPC("Die", RpcTarget.All);
             }
-            else
-            {
-                //this will call the function updateHpOnline, on every pc on the server
-                photonView.RPC("UpdateHpOnline", RpcTarget.All, playerStats.hp);
-            }
+            //this will call the function updateHpOnline, on every pc on the server
+            photonView.RPC("UpdateHpOnline", RpcTarget.All, playerStats.hp);
         }
     }
 
@@ -91,7 +101,8 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
     //this function will show the hp on every pc
     void UpdateHpOnline(int hpLeft)
     {
-       
+        //this will tell the ui manager to update the hp
+       uiManagerScript.UpdateHpOfPlayer(indexOfThisPlayer, hpLeft);
     }
 
     [PunRPC]
@@ -140,7 +151,9 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         reviveControllerScript.gameObject.SetActive(false);
         //restore the player hp
         playerStats.hp = 100;
-        
+        //this will call the function updateHpOnline, on every pc on the server
+        photonView.RPC("UpdateHpOnline", RpcTarget.All, playerStats.hp);
+
     }
 
     //this will be called when an enemy is killed

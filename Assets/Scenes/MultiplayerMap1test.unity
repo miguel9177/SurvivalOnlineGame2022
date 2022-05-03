@@ -939,7 +939,7 @@ GameObject:
   - component: {fileID: 757236013}
   - component: {fileID: 757236014}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: HealthBar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1245,7 +1245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d18e2dfaa1a123147a5bb4c79306ffa8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48dd0624051c35b449d3369ceff34e1d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1976,7 +1976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2947ec439f9fc294eadfbadf95380463, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48dd0624051c35b449d3369ceff34e1d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2514,7 +2514,7 @@ GameObject:
   - component: {fileID: 1897795731}
   - component: {fileID: 1897795732}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: HealthBar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3136,7 +3136,7 @@ PrefabInstance:
     - target: {fileID: -3494047646332346030, guid: 8bf53900de670fc48aa40bd57cc0da0d, type: 3}
       propertyPath: playerPrefabWoman
       value: 
-      objectReference: {fileID: 5018839419928201618, guid: d7583918096e17a42982a6ae746eab4f, type: 3}
+      objectReference: {fileID: 5018839419928201618, guid: fa17416eaaa58a549a7e17a52ef6a7ad, type: 3}
     - target: {fileID: -3494047646332346030, guid: 8bf53900de670fc48aa40bd57cc0da0d, type: 3}
       propertyPath: playerCameraFollow
       value: 
@@ -3307,6 +3307,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5478b329b9de9c54692448891dc1ce4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allIconcAndHpBars:
+  - playerImage: {fileID: 1349854188}
+    hpBar: {fileID: 1897795732}
+  - playerImage: {fileID: 931497205}
+    hpBar: {fileID: 757236014}
   txtBulletsOfWeapon: {fileID: 1910008512}
   txtReloadInformation: {fileID: 726157289}
   txtPlayerHp: {fileID: 2026951977}

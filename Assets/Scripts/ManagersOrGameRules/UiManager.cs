@@ -6,6 +6,37 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    
+    //this struct will store which player has wich hp bar 
+    struct PlayersAndHpBar
+    {
+        //this will store the players and functionalities script
+        public PlayerStatsAndFunctionalities playersAndFunctionalities;
+        //this will store the hp bar of this player
+        public Slider hpBar;
+        //this will store the numebr of the player
+        public int indexOfPlayer;
+    }
+
+    [System.Serializable]
+    //this will store the player icon and its hpbar
+    struct PlayerIconAndHpBar
+    {
+        public Image playerImage;
+        public Slider hpBar;
+    }
+
+    
+    //this will have all players information, and its hp bar
+    List<PlayersAndHpBar> allPlayersAndTheirHpSliders = new List<PlayersAndHpBar>();
+
+    //this will store all hp bars
+    [SerializeField]
+    PlayerIconAndHpBar[] allIconcAndHpBars;
+
+    //this will store the number of players spawned so that it can check wich index the current player is
+    int currentPlayersSpawned;
+
     [SerializeField]
     //this will store the text for the bullets
     public TextMeshProUGUI txtBulletsOfWeapon;
@@ -19,7 +50,7 @@ public class UiManager : MonoBehaviour
     public TextMeshProUGUI txtPlayerHp;
 
     [HideInInspector]
-    //this will store the player gameobject, so that i can access every script from here
+    //this will store the player gameobject, so that i can access every script from here, its filled by the player spawner script
     public GameObject player;
 
     [SerializeField]
@@ -53,6 +84,41 @@ public class UiManager : MonoBehaviour
         player.GetComponent<PlayerStatsAndFunctionalities>().UpdateMoneyText();
     }
 
-   
+    //this will add a player to the Ui Manager players list, with this i will control their hp bar
+    public int PlayerSpawned(PlayerStatsAndFunctionalities playerStatsAndFunctionalities)
+    {
+        //this will create a new playersAndHpBar item, and this will create a new item for the all players and their hp sliders list
+        PlayersAndHpBar newPlayer;
+        //this will store the player stats and functionalities script, of the spawned player
+        newPlayer.playersAndFunctionalities = playerStatsAndFunctionalities;
+        ///this will store its hpbar
+        newPlayer.hpBar = allIconcAndHpBars[currentPlayersSpawned].hpBar;
+
+        //this will store the index of the player
+        newPlayer.indexOfPlayer = currentPlayersSpawned;
+        //this will add an item to the players and their hp sliders
+        allPlayersAndTheirHpSliders.Add(newPlayer);
+
+        //this will change the image of the player ui to the correct player
+        allIconcAndHpBars[currentPlayersSpawned].playerImage.sprite = playerStatsAndFunctionalities.playerStats.iconOfSkin;
+
+        //this will tell this script that we added a new player
+        currentPlayersSpawned++;
+        
+        //this will return the index of the player spawned back to them
+        return currentPlayersSpawned - 1;
+    }
     
+    //this will be called by the player stats and functionalities and will update the hp slider of the player that loss hp
+    public void UpdateHpOfPlayer(int indexOfPlayer, int hpLeft)
+    {
+        //this will update the hp of the player
+        allPlayersAndTheirHpSliders[indexOfPlayer].playersAndFunctionalities.playerStats.hp = hpLeft;
+        //this will update the playerHp bar slider
+        allPlayersAndTheirHpSliders[indexOfPlayer].hpBar.value = (float)allPlayersAndTheirHpSliders[indexOfPlayer].playersAndFunctionalities.playerStats.hp /
+            (float)allPlayersAndTheirHpSliders[indexOfPlayer].playersAndFunctionalities.playerStats.maxHp;
+
+        Debug.Log(indexOfPlayer);
+    }
+
 }
