@@ -79,7 +79,19 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
                 //this will call the function Die, on every pc on the server
                 photonView.RPC("Die", RpcTarget.All);
             }
+            else
+            {
+                //this will call the function updateHpOnline, on every pc on the server
+                photonView.RPC("UpdateHpOnline", RpcTarget.All, playerStats.hp);
+            }
         }
+    }
+
+    [PunRPC]
+    //this function will show the hp on every pc
+    void UpdateHpOnline(int hpLeft)
+    {
+       
     }
 
     [PunRPC]
