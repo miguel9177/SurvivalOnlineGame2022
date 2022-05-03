@@ -118,7 +118,7 @@ public class UiManager : MonoBehaviour
         allPlayersAndTheirHpSliders[indexOfPlayer].hpBar.value = (float)allPlayersAndTheirHpSliders[indexOfPlayer].playersAndFunctionalities.playerStats.hp /
             (float)allPlayersAndTheirHpSliders[indexOfPlayer].playersAndFunctionalities.playerStats.maxHp;
 
-        Debug.Log(indexOfPlayer);
+       
     }
 
 }

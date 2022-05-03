@@ -163,7 +163,7 @@ public class NormalGun : GunInformation
         gun.currentBulletsOnMagazine -= 1;
         //call th function to update the text o fthe bullets
         UpdateBulletsText();
-        Debug.Log("Shooting");
+    
     }
 
     //this function will write the correct text on the bullets text

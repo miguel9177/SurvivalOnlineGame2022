@@ -117,6 +117,7 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         characterInputScript.blockPlayerInput = true;
         //enable the revive gameobject
         reviveControllerScript.gameObject.SetActive(true);
+
         //tell the code that this player is dead
         amIDead=true;
     }
@@ -151,6 +152,14 @@ public class PlayerStatsAndFunctionalities : MonoBehaviourPun
         reviveControllerScript.gameObject.SetActive(false);
         //restore the player hp
         playerStats.hp = 100;
+
+        //if this is my photon view
+        if(photonView.IsMine)
+        {
+            //update the hp text since we have max hp, because we have been revived
+            txtPlayerHp.text = "Hp: " + playerStats.maxHp;
+        }
+
         //this will call the function updateHpOnline, on every pc on the server
         photonView.RPC("UpdateHpOnline", RpcTarget.All, playerStats.hp);
 
