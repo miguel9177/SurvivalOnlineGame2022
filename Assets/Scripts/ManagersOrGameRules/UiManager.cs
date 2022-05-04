@@ -57,6 +57,8 @@ public class UiManager : MonoBehaviour
     //this will hold the revive button, and will be used by the revive controller
     public Button reviveButton;
 
+ 
+
     private void Start()
     {
         //call the courotine that is going to make this script start after everyone else 
