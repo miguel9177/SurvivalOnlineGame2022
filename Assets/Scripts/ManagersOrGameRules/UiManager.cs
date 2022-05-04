@@ -57,7 +57,14 @@ public class UiManager : MonoBehaviour
     //this will hold the revive button, and will be used by the revive controller
     public Button reviveButton;
 
- 
+    [SerializeField]
+    MobileJoystick movementJoystick;
+
+    //this will store the character input, so that i can send him the movement
+    CharacterInput characterInput;
+
+    //this will be true if we are on android
+    bool android=false;
 
     private void Start()
     {
@@ -65,6 +72,12 @@ public class UiManager : MonoBehaviour
         StartCoroutine(LateStart());
         //make this text invisible since we only want to tell the user that we are reloading, when we are reloading
         txtReloadInformation.gameObject.SetActive(false);
+
+        //this will check if we are on android if we are, tell the code that
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            android = true;
+        }
     }
 
     
@@ -84,6 +97,17 @@ public class UiManager : MonoBehaviour
         //this will assign the textbox to the player
         player.GetComponent<PlayerStatsAndFunctionalities>().txtPlayerHp = txtPlayerHp;
         player.GetComponent<PlayerStatsAndFunctionalities>().UpdateMoneyText();
+
+        //this will get the character input script
+        characterInput = player.GetComponent<CharacterInput>();
+            
+    }
+
+    private void Update()
+    {
+        //if we are on android we send the joystick movement normalized value
+        if(android)
+            characterInput.receiveMovementFromUiManager(movementJoystick.GetNotmalizedMovement());
     }
 
     //this will add a player to the Ui Manager players list, with this i will control their hp bar

@@ -28,12 +28,20 @@ public class CharacterInput : MonoBehaviourPun
     //this bool will block the player movement, for example, when inside menus, or when death, it will be changed by scripts outside, like player stats and functionalities
     public bool blockPlayerInput = false;
 
+    //this will be true if we are running the game on android
+    private bool android = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+
+        //this will check if we are on android if we are, tell the code that
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            android = true;
+        }
     }
 
     // Update is called once per frame
@@ -42,8 +50,18 @@ public class CharacterInput : MonoBehaviourPun
         //if this is my photon view (if this is my character and not any other players character), and im not blocking the player input call the function that thakes input
         if (photonView.IsMine && blockPlayerInput == false)
         {
-            //call the function that gets the input and moves the object
-            TakeInput();
+            //if we are on android
+            if(android)
+            {
+                //this will take the input if on android 
+                TakeInputIfAndroid();
+            }
+            //if we are on windows
+            else
+            {
+                //call the function that gets the input and moves the object
+                TakeInputIfWindows();
+            }
         }
         else if(blockPlayerInput == true)
         {
@@ -61,8 +79,8 @@ public class CharacterInput : MonoBehaviourPun
       
     }
 
-    //this function runs only on my pc, not on the other clients
-    void TakeInput()
+    //this function runs only on my pc, not on the other clients, if we are on windows port
+    void TakeInputIfWindows()
     {
         //create a vector that is going to get the movement of the character by getting the values from the arrow keys
         movement = new Vector2
@@ -83,5 +101,29 @@ public class CharacterInput : MonoBehaviourPun
         float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         //rotate the object
         transform.rotation = Quaternion.Euler(0f, 0f, rotation_z);
+    }
+
+    //this function will run on android if we are android
+    void TakeInputIfAndroid()
+    {
+        //this will get if the player is moving on a float, so that i can pass it to the animator
+        float totalMovement = Mathf.Abs(movement.x) + Mathf.Abs(movement.y);
+        //send the movement value to the animator
+        playerAnimator.SetFloat(walkParameterFloatName, totalMovement);
+
+        //this will rotate the player towards the mouse position
+        /*Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        difference.Normalize();
+        //does the tangent of the y and x to get the z angle
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        //rotate the object
+        transform.rotation = Quaternion.Euler(0f, 0f, rotation_z);*/
+    }
+
+    //this will receive the movement from the ui manager if we are on android because of the joystick
+    public void receiveMovementFromUiManager(Vector2 movementNormalized)
+    {
+        //store the movement from the joystick
+        movement = movementNormalized;
     }
 }

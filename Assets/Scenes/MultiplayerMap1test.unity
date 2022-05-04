@@ -940,6 +940,7 @@ GameObject:
   - component: {fileID: 731963429}
   - component: {fileID: 731963431}
   - component: {fileID: 731963430}
+  - component: {fileID: 731963432}
   m_Layer: 5
   m_Name: Joystick
   m_TagString: Untagged
@@ -1004,6 +1005,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731963428}
   m_CullTransparentMesh: 1
+--- !u!114 &731963432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731963428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7749456b859869d4891694fe569a30f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 731963429}
+  canvas: {fileID: 729716550}
+  limitOfJoystick: 70
 --- !u!1 &757236012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,8 +1809,9 @@ GameObject:
   - component: {fileID: 1118761481}
   - component: {fileID: 1118761483}
   - component: {fileID: 1118761482}
+  - component: {fileID: 1118761484}
   m_Layer: 5
-  m_Name: ShootingJoystickBackground (1)
+  m_Name: ShootingJoystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1857,6 +1874,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118761480}
   m_CullTransparentMesh: 1
+--- !u!114 &1118761484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118761480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7749456b859869d4891694fe569a30f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 1118761481}
+  canvas: {fileID: 729716550}
+  limitOfJoystick: 70
 --- !u!1 &1255641303
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,7 +3087,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.05
+  m_fontSize: 35.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3696,21 +3728,7 @@ MonoBehaviour:
   txtPlayerHp: {fileID: 2026951977}
   player: {fileID: 0}
   reviveButton: {fileID: 618603367}
---- !u!114 &2001471622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001471618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7749456b859869d4891694fe569a30f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 731963429}
-  canvas: {fileID: 729716550}
-  limitOfJoystick: 70
+  movementJoystick: {fileID: 0}
 --- !u!1 &2026951975
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3813,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.05
+  m_fontSize: 35.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
