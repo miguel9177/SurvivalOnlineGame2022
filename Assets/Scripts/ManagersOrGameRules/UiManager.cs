@@ -54,10 +54,6 @@ public class UiManager : MonoBehaviour
     public GameObject player;
 
     [SerializeField]
-    //this will hold the revive button, and will be used by the revive controller
-    public Button reviveButton;
-
-    [SerializeField]
     MobileJoystick movementJoystick;
 
     //this will store the character input, so that i can send him the movement

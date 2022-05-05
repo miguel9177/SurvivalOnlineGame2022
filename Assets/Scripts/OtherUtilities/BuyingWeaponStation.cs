@@ -10,11 +10,13 @@ public class BuyingWeaponStation : MonoBehaviour
     GunInformation weaponToBuy;
 
     [SerializeField]
-    //this will hold the buy weapon 
-    Button buttonToBuy;
+    //we need to tell this script that the player is on our buying station if he enters us
+    BuyWeaponManager buyWeaponManager;
 
     //this will store the player with my photon view
     GameObject myPlayer;
+
+    
 
     //when a trigger enters
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,11 +24,10 @@ public class BuyingWeaponStation : MonoBehaviour
         //if who entered is my player
         if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine)
         {
-            //show the buy button, since we are in buying area
-            buttonToBuy.gameObject.SetActive(true);
-            //tell the button buy that we on click, he will buy our weapon
-            buttonToBuy.onClick.AddListener(BuyWeapon);
-
+            //tell the code at what buystation we are
+            buyWeaponManager.CurrentBuystationThePlayerIsOn(this);
+            //this will activate the buy weapon button
+            buyWeaponManager.ActivateButton();
             //tell the code that this is my player
             myPlayer = collision.gameObject;
         }
@@ -38,16 +39,17 @@ public class BuyingWeaponStation : MonoBehaviour
         //if who Exited is my player
         if (collision.CompareTag("Player") && collision.GetComponent<PhotonView>().IsMine)
         {
-            //hide the buy button, since we are in buying area
-            buttonToBuy.gameObject.SetActive(false);
-            //since we left the buy zone we remove all listeners, since we cant buy the weapon
-            buttonToBuy.onClick.RemoveAllListeners();
+            //tell the code at what buystation we are
+            buyWeaponManager.ForgetBuystationThePlayerIsOn();
+            //this will activate the buy weapon button
+            buyWeaponManager.DeactivateButton();
         }
     }
 
     //this will buy the weapon
     public void BuyWeapon()
     {
+        Debug.Log("BUYingWeapon");
         //this will get the player statics scrript
         PlayerStatsAndFunctionalities playerStatsScript;
         playerStatsScript = myPlayer.GetComponent<PlayerStatsAndFunctionalities>();
@@ -80,6 +82,7 @@ public class BuyingWeaponStation : MonoBehaviour
                     playerCharacterWeapon.rifle.gun.weight = weaponToBuy.gun.weight;
                     playerCharacterWeapon.rifle.gun.bulletSpawnPos.transform.localPosition = weaponToBuy.gun.bulletSpawnPos.localPosition;
                     playerCharacterWeapon.rifle.gun.bullet = weaponToBuy.gun.bullet;
+
                     //switch the weapon to the one bought
                     playerCharacterWeapon.switchWeapon(1);
                     break;
@@ -126,7 +129,7 @@ public class BuyingWeaponStation : MonoBehaviour
                     playerCharacterWeapon.switchWeapon(3);
                     break;
             }
-
+            playerStatsScript.playerStats.money -= weaponToBuy.gun.moneyWorth;
             //update the texts
             playerStatsScript.UpdateMoneyText();
             weaponToBuy.UpdateBulletsText();

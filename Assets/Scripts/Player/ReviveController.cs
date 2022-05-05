@@ -14,9 +14,6 @@ public class ReviveController : MonoBehaviour
     //this will be assign by the ui manager
     public Button reviveButton;    
 
-    //this will hgold the ui manager
-    UiManager uiManager;
-
     //this will be true when someone is reviving this dead player
     bool beingRevived = false;
 
@@ -31,16 +28,16 @@ public class ReviveController : MonoBehaviour
     {
         //call the courotine that is going to make this script start after everyone else 
         StartCoroutine(LateStart());
+        reviveButton.gameObject.SetActive(false);
     }
 
     IEnumerator LateStart()
     {
         yield return new WaitForSeconds(0.1f);
-        //get the ui manager
-        uiManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<UiManager>();
-        //get the revive button
-        reviveButton = uiManager.reviveButton;
-        //this will disable the gameobject, since we already assigned the revive button
+        
+        
+
+        //this will disable the gameobject
         this.gameObject.SetActive(false);
     }
 
@@ -59,9 +56,6 @@ public class ReviveController : MonoBehaviour
             {
                 //enable the revive button
                 reviveButton.gameObject.SetActive(true);
-
-                //since we enabled the 
-                reviveButton.onClick.AddListener(this.StartReviving);
 
                 //this will get player stats script from the player that is going to revive us
                 revivingPlayerStatsAndFunc = col.gameObject.GetComponent<PlayerStatsAndFunctionalities>();
@@ -92,7 +86,7 @@ public class ReviveController : MonoBehaviour
     }
 
     //this will start reviving the player and will be called by the revive button
-    private void StartReviving()
+    public void StartReviving()
     {
         //tell the code that we are reviving the player
         beingRevived = true;
