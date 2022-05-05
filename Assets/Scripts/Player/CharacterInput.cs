@@ -42,6 +42,7 @@ public class CharacterInput : MonoBehaviourPun
         {
             android = true;
         }
+        
     }
 
     // Update is called once per frame
@@ -120,10 +121,13 @@ public class CharacterInput : MonoBehaviourPun
         transform.rotation = Quaternion.Euler(0f, 0f, rotation_z);*/
     }
 
+   
+
     //this will receive the movement from the ui manager if we are on android because of the joystick
-    public void receiveMovementFromUiManager(Vector2 movementNormalized)
+    public void receiveMovementFromUiManager(Vector2 movement_)
     {
+        Debug.Log("IM CALLED");
         //store the movement from the joystick
-        movement = movementNormalized;
+        movement = movement_;
     }
 }

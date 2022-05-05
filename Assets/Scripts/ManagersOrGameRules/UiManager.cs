@@ -66,6 +66,9 @@ public class UiManager : MonoBehaviour
     //this will be true if we are on android
     bool android=false;
 
+    //this will be true if we have runed the late start function
+    bool haveIRunedTheLateStartFunction=false;
+
     private void Start()
     {
         //call the courotine that is going to make this script start after everyone else 
@@ -76,8 +79,10 @@ public class UiManager : MonoBehaviour
         //this will check if we are on android if we are, tell the code that
         if (Application.platform == RuntimePlatform.Android)
         {
+            Debug.Log("Im ON ANDROID");
             android = true;
         }
+           
     }
 
     
@@ -101,13 +106,18 @@ public class UiManager : MonoBehaviour
         //this will get the character input script
         characterInput = player.GetComponent<CharacterInput>();
             
+        haveIRunedTheLateStartFunction = true;
     }
 
     private void Update()
     {
         //if we are on android we send the joystick movement normalized value
-        if(android)
+        if(android && haveIRunedTheLateStartFunction)
+        {
             characterInput.receiveMovementFromUiManager(movementJoystick.GetNotmalizedMovement());
+            txtPlayerHp.text = "Android";
+        }
+            
     }
 
     //this will add a player to the Ui Manager players list, with this i will control their hp bar
